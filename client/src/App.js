@@ -3,8 +3,10 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import StudentSignUp from './pages/StudentSignUp'
 import CompanySignUp from './pages/CompanySignUp'
+import Post from './pages/Post'
 
 function App() {
+  
   
   return (
     <div className='h-full bg-black' >
@@ -14,6 +16,7 @@ function App() {
         <Route path="/student/signup" element={<StudentSignUp/>} />
         <Route path="/company/signup" element={<CompanySignUp/>} />
         <Route path="/Login" element={<Login/>} />
+        <Route path="student/posts" element={<Post/>} />
         <Route
         path="*"
         element={<Navigate to="/student" replace />}

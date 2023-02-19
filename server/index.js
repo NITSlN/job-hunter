@@ -1,13 +1,14 @@
 const express = require('express')
 const connecDB = require('./config/db')
 const port = process.env.PORT || 3001
+const cors = require("cors");
+const app = express()
 
 require('dotenv').config()
 
 connecDB()
 
-
-const app = express()
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
