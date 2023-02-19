@@ -2,9 +2,13 @@ const mongoose = require('mongoose')
 
 const jobPostSchema = mongoose.Schema(
   {
-    company: {
+    companyRef: {
       type: String, // id of the company posting the job
       required: true, 
+    },
+    companyName:{
+      type: String, // id of the company posting the job
+      required: true,
     },
     role: {
       type: String,
