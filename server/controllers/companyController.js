@@ -93,11 +93,16 @@ const getJobs = async (req, res) => {
 // @access  Private
 const createJob = async (req, res) => {
   try {
+    // getting tags
     const tags = req.body.tags?.split(',')
+    // finding company using user id
     const company = await Company.findById(req.user.id)
-    const post = await JobPost.create({ company:company.id, ...req.body, tags })
+    // creating Job in db
+    const post = await JobPost.create({ company:company.id,companyName:company.name, ...req.body, tags })
+    // adding this job to company's posted job array
     company.jobsPosted.push(post.id)
     await company.save()
+    // sending the job back
     res.json(post)
   } catch (err) {
     console.log(err)
