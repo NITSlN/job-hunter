@@ -1,12 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const jobSchema = mongoose.Schema(
   {
     companyRef: {
       type: String, // id of the company posting the job
-      required: true, 
+      required: true,
     },
-    companyName:{
+    companyName: {
       type: String, // id of the company posting the job
       required: true,
     },
@@ -25,11 +25,11 @@ const jobSchema = mongoose.Schema(
     },
     stipend: {
       type: String,
-      default: '5k',
+      default: "5k",
     },
     duration: {
-      type: String,  // internship duration
-      default: '1 M',
+      type: String, // internship duration
+      default: "1 M",
     },
     mode: {
       type: String, // full-time, part-time or semi-full-time
@@ -37,15 +37,15 @@ const jobSchema = mongoose.Schema(
     },
     positions: {
       type: String, // No. of position for a role
-      default: '1',
+      default: "1",
     },
-    applied:{
-      type:[String],  // Stores id of student
-    }
+    applied: {
+      type: [String], // Stores id of student
+    },
   },
   {
     timestamps: true,
-  },
-)
+  }
+);
 
-module.exports = mongoose.model('Job', jobSchema)
+module.exports = mongoose.models.Job || mongoose.model("Job", jobSchema);
