@@ -23,11 +23,37 @@ const CompanySchema = new mongoose.Schema(
     phoneNumber:{
         type: String,
     },
-    img: {
+    description: {
+      type: String,
+      required: true
+    },
+    companySize:{
+      type: String, // 1-10, 11-50 ...
+    }
+    ,
+    logo: {
       type: String,
     },
+    website: {
+      type: String,
+    },
+    linkedIn:{
+      type: String,
+    },
+    address: {
+      street: String,
+      city: String,
+      state: String,
+      zip: String
+    },
     jobsPosted:{
-      type: [String],
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Job',
+          required: true
+        }
+      ],
     }
   },
   { timestamps: true }

@@ -44,6 +44,18 @@ const studentSchema = new Schema({
     issueDate: Date,
     // expirationDate: Date
   }],
+  savedJobs:
+    [{
+      jobId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Job'
+      },
+      companyName: String,
+      title: String,
+      dateApplied: Date,
+      status: String
+    }]
+  ,
   applications: [{
     jobId: {
       type: Schema.Types.ObjectId,

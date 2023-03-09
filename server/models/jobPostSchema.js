@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const jobPostSchema = mongoose.Schema(
+const jobSchema = mongoose.Schema(
   {
     companyRef: {
       type: String, // id of the company posting the job
@@ -48,4 +48,4 @@ const jobPostSchema = mongoose.Schema(
   },
 )
 
-module.exports = mongoose.model('JobPost', jobPostSchema)
+module.exports = mongoose.model('Job', jobSchema)
