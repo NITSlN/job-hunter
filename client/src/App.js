@@ -3,7 +3,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import StudentSignUp from './pages/StudentSignUp'
 import CompanySignUp from './pages/CompanySignUp'
-import Post from './pages/Post'
+import Posts from './pages/Posts'
 
 function App() {
   
@@ -16,7 +16,7 @@ function App() {
         <Route path="/student/signup" element={<StudentSignUp/>} />
         <Route path="/company/signup" element={<CompanySignUp/>} />
         <Route path="/Login" element={<Login/>} />
-        <Route path="student/posts" element={<Post/>} />
+        <Route path="student/posts" element={<Posts/>} />
         <Route
         path="*"
         element={<Navigate to="/student" replace />}

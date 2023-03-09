@@ -1,7 +1,6 @@
 const express = require('express')
 const { registerStudent, loginStudent, getMe, getJobs, applyForJob } = require('../controllers/StudentController')
 const { protect } = require('../middleware/authMiddleware')
-// const JobPost = require('../models/jobPostSchema')
 const router = express.Router()
 
 // base URL - /api/student
