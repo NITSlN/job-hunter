@@ -1,40 +1,61 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const StudentSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    img: {
-      type: String,
-    },
-    phoneNumber:{
-        type: String,
-    },
-    collegeName:{
-      type: String,
-    },
-    yearOfPassing:{
-      type: String,
-    },
-    gitHub:{
-      type: String,
-    },
-    LinkedIn:{
-      type: String,
-    }
+const studentSchema = new Schema({
+  name: {
+    type: String,
+    required: true
   },
-  { timestamps: true }
-);
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    index:true
+  },
+  phone: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String
+  },
+  education: [{
+    school: String,
+    degree: String,
+    fieldOfStudy: String,
+    startYear: Number,
+    endYear: Number
+  }],
+  workExperience: [{
+    company: String,
+    position: String,
+    description: String,
+    startDate: Date, // date
+    endDate: Date
+  }],
+  skills: [String],
+  certifications: [{
+    name: String,
+    issuingOrganization: String,
+    issueDate: Date,
+    // expirationDate: Date
+  }],
+  applications: [{
+    jobId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Job'
+    },
+    companyName: String,
+    title: String,
+    dateApplied: Date,
+    status: String
+  }]
+});
 
-module.exports = mongoose.model("Student", StudentSchema);
+const Student = mongoose.model('Student', studentSchema);
+
+module.exports = Student;
