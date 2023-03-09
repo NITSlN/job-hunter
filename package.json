@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "npm run dev --prefix server",
+    "server": "npm start --prefix server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/NITSlN/job-hunter/issues"
   },
-  "homepage": "https://github.com/NITSlN/job-hunter#readme"
+  "homepage": "https://github.com/NITSlN/job-hunter#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
