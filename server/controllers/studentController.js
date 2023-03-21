@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const Student = require("../models/studentSchema");
-const JobPost = require("../models/jobPostSchema");
+const JobPost = require("../models/jobSchema");
 const { generateToken } = require("../utils/helper");
 
 // @desc    Get jobs

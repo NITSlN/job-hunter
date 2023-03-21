@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 var mongoose = require("mongoose");
 
-const JobPost = require("../models/jobPostSchema");
+const JobPost = require("../models/jobSchema");
 const Company = require("../models/companySchema");
 const Student = require("../models/studentSchema");
 

@@ -16,9 +16,9 @@ app.use("/api/company", require("./routes/companyRoute"));
 const serverStart = async () => {
   try {
     connectDB();
-    app.listen(process.env.PORT || 4000, () => {
+    app.listen(process.env.PORT || 3001, () => {
       console.log(
-        `Server ready at http://localhost:${process.env.PORT || 4000}`
+        `Server ready at http://localhost:${process.env.PORT || 3001}`
       );
     });
   } catch (error) {
