@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const CompanySchema = new mongoose.Schema(
   {
@@ -6,10 +6,10 @@ const CompanySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    companyName:{
-        type: String,
-        required: true,
-        unique: true,
+    companyName: {
+      type: String,
+      required: true,
+      unique: true,
     },
     email: {
       type: String,
@@ -20,43 +20,43 @@ const CompanySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phoneNumber:{
-        type: String,
+    phoneNumber: {
+      type: String,
     },
     description: {
       type: String,
-      required: true
+      required: true,
     },
-    companySize:{
+    companySize: {
       type: String, // 1-10, 11-50 ...
-    }
-    ,
+    },
     logo: {
       type: String,
     },
     website: {
       type: String,
     },
-    linkedIn:{
+    linkedIn: {
       type: String,
     },
     address: {
       street: String,
       city: String,
       state: String,
-      zip: String
+      zip: String,
     },
-    jobsPosted:{
+    jobsPosted: {
       type: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'Job',
-          required: true
-        }
+          ref: "Job",
+          required: true,
+        },
       ],
-    }
+    },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Company", CompanySchema);
+module.exports =
+  mongoose.model.Company || mongoose.model("Company", CompanySchema);

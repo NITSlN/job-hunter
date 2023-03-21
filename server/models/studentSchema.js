@@ -1,73 +1,82 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const studentSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    index:true
+    index: true,
   },
   phone: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   address: {
     street: String,
     city: String,
     state: String,
-    zip: String
+    zip: String,
   },
-  education: [{
-    school: String,
-    degree: String,
-    fieldOfStudy: String,
-    startYear: Number,
-    endYear: Number
-  }],
-  workExperience: [{
-    company: String,
-    position: String,
-    description: String,
-    startDate: Date, // date
-    endDate: Date
-  }],
+  education: [
+    {
+      school: String,
+      degree: String,
+      fieldOfStudy: String,
+      startYear: Number,
+      endYear: Number,
+    },
+  ],
+  workExperience: [
+    {
+      company: String,
+      position: String,
+      description: String,
+      startDate: Date, // date
+      endDate: Date,
+    },
+  ],
   skills: [String],
-  certifications: [{
-    name: String,
-    issuingOrganization: String,
-    issueDate: Date,
-    // expirationDate: Date
-  }],
-  savedJobs:
-    [{
+  certifications: [
+    {
+      name: String,
+      issuingOrganization: String,
+      issueDate: Date,
+      // expirationDate: Date
+    },
+  ],
+  savedJobs: [
+    {
       jobId: {
         type: Schema.Types.ObjectId,
-        ref: 'Job'
+        ref: "Job",
       },
       companyName: String,
       title: String,
       dateApplied: Date,
-      status: String
-    }]
-  ,
-  applications: [{
-    jobId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Job'
+      status: String,
     },
-    companyName: String,
-    title: String,
-    dateApplied: Date,
-    status: String
-  }]
+  ],
+  applications: [
+    {
+      jobId: {
+        type: Schema.Types.ObjectId,
+        ref: "Job",
+      },
+      companyName: String,
+      title: String,
+      dateApplied: Date,
+      status: String,
+    },
+  ],
 });
 
-const Student = mongoose.model('Student', studentSchema);
+const Student =
+  mongoose.models.Student || mongoose.model("Student", studentSchema);
 
 module.exports = Student;
