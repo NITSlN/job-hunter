@@ -31,9 +31,13 @@ const jobSchema = mongoose.Schema(
       type: String,  // internship duration
       default: '1 M',
     },
-    mode: {
+    type: {
       type: String, // full-time, part-time or semi-full-time
       required: true,
+    },
+    mode: {
+      type: String, // in-office, hybrid, WFH
+      // required: true,
     },
     positions: {
       type: String, // No. of position for a role
