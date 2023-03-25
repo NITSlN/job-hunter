@@ -6,7 +6,7 @@ const {
   getJobs,
   applyForJob,
 } = require("../controllers/studentController");
-const { protect } = require("../middleware/authMiddleware");
+const { studentProtect } = require("../middleware/authMiddleware");
 const router = express.Router();
 
 // base URL - /api/student
@@ -14,10 +14,10 @@ const router = express.Router();
 router.post("/register", registerStudent);
 router.post("/login", loginStudent);
 // get user details
-router.get("/me", protect, getMe);
+router.get("/me", studentProtect, getMe);
 // gets all the jobs posted
 router.get("/", getJobs);
 // apply for a job
-router.post("/apply/:id", protect, applyForJob);
+router.post("/apply/:id", studentProtect, applyForJob);
 
 module.exports = router;
