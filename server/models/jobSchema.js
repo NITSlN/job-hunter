@@ -18,18 +18,19 @@ const jobSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    tags: {
+    skills: {
       type: [String], // tags of role
       default: [],
       required: true,
     },
     stipend: {
       type: String,
-      default: "5k",
+      required: true, //in Rs.
+
     },
     duration: {
-      type: String, // internship duration
-      default: "1 M",
+      type: String, // internship duration in months
+      required: true,
     },
     type: {
       type: String, // full-time, part-time or semi-full-time
@@ -37,11 +38,11 @@ const jobSchema = mongoose.Schema(
     },
     mode: {
       type: String, // in-office, hybrid, WFH
-      // required: true,
+      required: true,
     },
     positions: {
       type: String, // No. of position for a role
-      default: "1",
+      required: true
     },
     applied: {
       type: [String], // Stores id of student

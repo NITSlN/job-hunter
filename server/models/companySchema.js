@@ -25,7 +25,6 @@ const CompanySchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     companySize: {
       type: String, // 1-10, 11-50 ...

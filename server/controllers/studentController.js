@@ -41,12 +41,13 @@ const registerStudent = async (req, res) => {
     });
 
     if (user) {
-      res.status(201).json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
-      });
+      res.cookie("access_token",generateToken(user._id),{
+        httpOnly:true
+    }).status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+    })
     } else {
       res.status(400);
       throw new Error("Invalid user data");
@@ -68,12 +69,13 @@ const loginStudent = async (req, res) => {
 
     console.log(user);
     if (user && (await bcrypt.compareSync(password, user.password))) {
-      res.json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
-      });
+      res.cookie("access_token",generateToken(user._id),{
+        httpOnly:true
+    }).status(200).json({
+      _id: user.id,
+      name: user.name,
+      email: user.email,
+    })
     } else {
       res.status(400);
       throw new Error("Invalid credentials");
@@ -112,11 +114,14 @@ const applyForJob = async (req, res) => {
     console.log(error);
   }
 };
-
+const logout = (req,res)=>{
+  res.cookie("access_token","",{ maxAge: 1 }).json({})
+}
 module.exports = {
   getJobs,
   registerStudent,
   loginStudent,
   getMe,
   applyForJob,
+  logout
 };

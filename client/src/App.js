@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import StudentSignUp from './pages/StudentSignUp'
 import CompanySignUp from './pages/CompanySignUp'
 import Posts from './pages/Posts'
+import PostJob from './pages/PostJob'
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
         <Route path="/company" element={<Home/>} />
         <Route path="/student/signup" element={<StudentSignUp/>} />
         <Route path="/company/signup" element={<CompanySignUp/>} />
+        <Route path="/company/postjob" element={<PostJob/>} />
         <Route path="/Login" element={<Login/>} />
         <Route path="student/posts" element={<Posts/>} />
         <Route

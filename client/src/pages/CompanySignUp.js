@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 
 function CompanySignUp() {
@@ -9,7 +10,7 @@ function CompanySignUp() {
 	const [confirmPassword, setConfirmPassword] = useState('')
   
 	// Sign up function
-	const signUp = () => {
+	const signUp = async () => {
 	  if (
 		name &&
 		email &&
@@ -18,13 +19,19 @@ function CompanySignUp() {
 		confirmPassword
 	  ) {
 		if (password !== confirmPassword) return alert('Passwords do not Match')
-		return console.log({
-		  name,
-		  email,
-		  phone,
-		  password,
-		  confirmPassword,
-		})
+		try {
+			const response = await axios.post('/api/company/register', {
+			  name,
+			  email,
+			  phone,
+			  password,
+			  companyName
+			});
+			return console.log(response.data);
+		  } catch (error) {
+			console.error(error);
+		  }
+		  
 	  }
 	  return alert('Fill all the Information')
 	}

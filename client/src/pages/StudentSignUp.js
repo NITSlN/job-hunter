@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 function StudentSignUp() {
   const [name, setName] = useState('')
@@ -6,9 +7,9 @@ function StudentSignUp() {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-
+  
   // Sign up function
-  const signUp = () => {
+  const signUp = async () => {
     if (
       name &&
       email &&
@@ -17,13 +18,19 @@ function StudentSignUp() {
       confirmPassword
     ) {
       if (password !== confirmPassword) return alert('Passwords do not Match')
-      return console.log({
-        name,
-        email,
-        phone,
-        password,
-        confirmPassword,
-      })
+
+      try {
+        const response = await axios.post('/api/student/register', {
+          name,
+          email,
+          phone,
+          password,
+        });
+        return console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+      
     }
     return alert('Fill all the Information')
   }
