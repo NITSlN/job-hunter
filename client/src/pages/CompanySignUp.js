@@ -37,12 +37,12 @@ function CompanySignUp() {
 	}
 	return (
 	  <section className="bg-black h-screen">
-		<div className="flex  justify-center  mx-auto px-6 py-24">
-		  <div className="w-full lg:w-2/5 shadow-lg bg-green-100 p-5 rounded-lg lg:rounded-l-none">
+      <div className="flex justify-center items-center pt-4 mx-auto h-full">
+		  <div className="w-full lg:w-2/5 shadow-lg bg-green-100 p-2 rounded-lg">
 			<h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
   
 			{/* Form */}
-			<form className="px-8 pt-6 pb-8 mb-4  rounded">
+			<form className="px-8 py-2 rounded">
 			  {/*  Name */}
 				<div className="mb-4 md:mr-2 md:mb-0">
 				  <label

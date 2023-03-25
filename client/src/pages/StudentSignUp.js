@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios';
+import axios from 'axios'
 
 function StudentSignUp() {
   const [name, setName] = useState('')
@@ -7,16 +7,10 @@ function StudentSignUp() {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  
+
   // Sign up function
   const signUp = async () => {
-    if (
-      name &&
-      email &&
-      phone &&
-      password &&
-      confirmPassword
-    ) {
+    if (name && email && phone && password && confirmPassword) {
       if (password !== confirmPassword) return alert('Passwords do not Match')
 
       try {
@@ -25,47 +19,46 @@ function StudentSignUp() {
           email,
           phone,
           password,
-        });
-        return console.log(response.data);
+        })
+        return console.log(response.data)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
-      
     }
     return alert('Fill all the Information')
   }
   return (
     <section className="bg-black h-screen">
-      <div className="flex  justify-center  mx-auto px-6 py-24">
-        <div className="w-full lg:w-2/5 shadow-lg bg-green-100 p-5 rounded-lg lg:rounded-l-none">
+      <div className="flex justify-center items-center pt-4 mx-auto h-full">
+        <div className="w-full lg:w-2/5 shadow-lg bg-green-100 p-2 rounded-lg">
           <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
 
           {/* Form */}
-          <form className="px-8 pt-6 pb-8 mb-4  rounded">
+          <form className="px-8 py-2 rounded">
             {/*  Name */}
-              <div className="mb-4 md:mr-2 md:mb-0">
-                <label
-                  className="block mb-2 text-sm font-bold text-gray-700"
-                  for="firstName"
-                >
-                 Name
-                </label>
-                <input
-                  className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                  id="firstName"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Name"
-                />
-              </div>
+            <div className="mb-4 md:mr-2 md:mb-0">
+              <label
+                className="block mb-2 text-sm font-bold text-gray-700"
+                for="firstName"
+              >
+                Name
+              </label>
+              <input
+                className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                id="firstName"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+              />
+            </div>
             {/* Email */}
             <div className="mb-4">
               <label
                 className="block mb-2 text-sm font-bold text-gray-700"
                 for="email"
               >
-                 Email
+                Email
               </label>
               <input
                 className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
