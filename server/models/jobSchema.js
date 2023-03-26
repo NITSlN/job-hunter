@@ -24,12 +24,12 @@ const jobSchema = mongoose.Schema(
       required: true,
     },
     stipend: {
-      type: String,
+      type: Number,
       required: true, //in Rs.
 
     },
     duration: {
-      type: String, // internship duration in months
+      type: Number, // internship duration in months
       required: true,
     },
     type: {
@@ -41,7 +41,7 @@ const jobSchema = mongoose.Schema(
       required: true,
     },
     positions: {
-      type: String, // No. of position for a role
+      type: Number, // No. of position for a role
       required: true
     },
     applied: {
