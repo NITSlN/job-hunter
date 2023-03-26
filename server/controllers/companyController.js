@@ -67,7 +67,8 @@ const loginCompany = async (req, res) => {
     if (user && (await bcrypt.compareSync(password, user.password))) {
       res
         .cookie('access_token', generateToken(user._id), {
-          httpOnly: true,
+          expires: new Date(Date.now()+25892000000),
+          httpOnly:true
         })
         .status(200)
         .json({
@@ -105,16 +106,17 @@ const createJob = async (req, res) => {
     let skills = req.body.skills?.split(',');
     skills = skills.map(skill=>skill.trim())
     // finding company using user id
+    console.log(req.user);
     const company = req.user
     // creating Job in db
     const post = await JobPost.create({
-      company: company.id,
-      companyName: company.name,
+      companyRef: company._id,
+      companyName: company.companyName,
       ...req.body,
       skills,
     })
     // adding this job to company's posted job array
-    company.jobsPosted.push(post.id)
+    company.jobsPosted.push(post._id)
     await company.save()
     // sending the job back
     res.json(post)
@@ -187,7 +189,7 @@ const getStudents = async (req, res) => {
     console.log(error)
   }
 }
-const logout = (req, res) => {
+const logoutCompany = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
 }
 module.exports = {
@@ -199,5 +201,5 @@ module.exports = {
   registerCompany,
   getProfile,
   getStudents,
-  logout,
+  logoutCompany,
 }

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const jobSchema = mongoose.Schema(
   {
     companyRef: {
-      type: String, // id of the company posting the job
+      type: mongoose.Schema.Types.ObjectId, // id of the company posting the job
       required: true,
     },
     companyName: {

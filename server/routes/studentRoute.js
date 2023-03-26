@@ -5,6 +5,7 @@ const {
   getMe,
   getJobs,
   applyForJob,
+  logoutStudent,
 } = require("../controllers/studentController");
 const { studentProtect } = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.post("/register", registerStudent);
 router.post("/login", loginStudent);
+router.post("/logout", logoutStudent);
 // get user details
 router.get("/me", studentProtect, getMe);
 // gets all the jobs posted

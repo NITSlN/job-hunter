@@ -27,7 +27,7 @@ const PostJob = () => {
       positions,
       type,
       mode,
-    })
+    }, { withCredentials: true })
     
   }
 

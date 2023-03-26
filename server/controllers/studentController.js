@@ -42,6 +42,7 @@ const registerStudent = async (req, res) => {
 
     if (user) {
       res.cookie("access_token",generateToken(user._id),{
+        expires: new Date(Date.now()+25892000000), // expire in 30 days
         httpOnly:true
     }).status(200).json({
       _id: user.id,
@@ -70,6 +71,7 @@ const loginStudent = async (req, res) => {
     console.log(user);
     if (user && (await bcrypt.compareSync(password, user.password))) {
       res.cookie("access_token",generateToken(user._id),{
+        expires: new Date(Date.now()+25892000000),
         httpOnly:true
     }).status(200).json({
       _id: user.id,
@@ -114,7 +116,7 @@ const applyForJob = async (req, res) => {
     console.log(error);
   }
 };
-const logout = (req,res)=>{
+const logoutStudent = (req,res)=>{
   res.cookie("access_token","",{ maxAge: 1 }).json({})
 }
 module.exports = {
@@ -123,5 +125,5 @@ module.exports = {
   loginStudent,
   getMe,
   applyForJob,
-  logout
+  logoutStudent
 };
