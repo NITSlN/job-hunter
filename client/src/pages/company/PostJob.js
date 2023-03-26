@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate  } from "react-router-dom";
 
 const PostJob = () => {
   const [role, setRole] = useState('')
@@ -11,6 +12,8 @@ const PostJob = () => {
   const [type, setType] = useState('')
   const [mode, setMode] = useState('')
 
+  const navigate = useNavigate();
+
   const handleSubmit = async(e) => {
     e.preventDefault()
     if (!role || !description || !skills || !duration || !stipend || !positions || !type || !mode) {
@@ -18,7 +21,7 @@ const PostJob = () => {
       return alert('Please fill all the required fields');
       
     }
-    await axios.post('/api/company/postJob',{
+    axios.post('/api/company/postJob',{
       role,
       description,
       skills,
@@ -27,7 +30,10 @@ const PostJob = () => {
       positions,
       type,
       mode,
-    }, { withCredentials: true })
+    }, { withCredentials: true }).then(()=>{
+      navigate('/company/posts')
+      console.log("redirect");
+    })         // for cookies this must be set
     
   }
 

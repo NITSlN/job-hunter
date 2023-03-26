@@ -12,7 +12,7 @@ router.post('/register', registerCompany)
 router.post('/login', loginCompany)
 router.post('/logout', logoutCompany)
 // Gets all Jobs posted by a company
-router.get('/',companyProtect, getJobs)
+router.get('/posts',companyProtect, getJobs)
 // Get the company profile
 router.get('/profile',companyProtect, getProfile)
 
