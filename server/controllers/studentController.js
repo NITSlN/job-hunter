@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const Student = require("../models/studentSchema");
-const JobPost = require("../models/jobSchema");
+const Jobs = require("../models/jobSchema");
 const { generateToken } = require("../utils/helper");
 
 // @desc    Get jobs
@@ -8,7 +8,7 @@ const { generateToken } = require("../utils/helper");
 // @access  Public
 const getJobs = async (req, res) => {
   try {
-    const jobs = await JobPost.find();
+    const jobs = await Jobs.find();
     res.status(200).json(jobs);
   } catch (e) {
     console.log(e);
@@ -105,7 +105,7 @@ const applyForJob = async (req, res) => {
   try {
     const jobId = req.params.id;
     const userId = req.user.id;
-    const job = await JobPost.findById(jobId);
+    const job = await Jobs.findById(jobId);
     if (job.applied.includes(userId)) {
       return res.json("You have already applied for the role.");
     }

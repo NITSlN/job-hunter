@@ -44,8 +44,14 @@ const jobSchema = mongoose.Schema(
       type: Number, // No. of position for a role
       required: true
     },
-    applied: {
-      type: [String], // Stores id of student
+    applied: { // Stores id of student
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Student",
+          required: true,
+        },
+      ], 
     },
   },
   {
