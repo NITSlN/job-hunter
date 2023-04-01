@@ -8,8 +8,15 @@ const { generateToken } = require("../utils/helper");
 // @access  Public
 const getJobs = async (req, res) => {
   try {
-    const jobs = await Jobs.find();
+    let jobs = await Jobs.find();
+    const appliedJobs = req.user.applications; // convert ObjectIds to strings
+    
+    // Filter out jobs that have an id in the appliedJobs array
+    jobs = jobs.filter(job => !appliedJobs.includes(job.id));
+    
+    // Return the remaining jobs
     res.status(200).json(jobs);
+    
   } catch (e) {
     console.log(e);
   }
@@ -111,6 +118,11 @@ const applyForJob = async (req, res) => {
     }
     job.applied.push(userId);
     await job.save();
+
+    const student = await Student.findOne({id:userId})
+    console.log(student);
+    student.applications.push(jobId)
+    await student.save()
     res.status(200).json("Applied");
   } catch (error) {
     console.log(error);
