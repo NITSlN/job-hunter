@@ -66,18 +66,7 @@ const studentSchema = new Schema({
       status: String,
     },
   ],
-  applications: [
-    {
-      jobId: {
-        type: Schema.Types.ObjectId,
-        ref: "Job",
-      },
-      companyName: String,
-      title: String,
-      dateApplied: Date,
-      status: String,
-    },
-  ],
+  applications: [String],
 });
 
 const Student =
