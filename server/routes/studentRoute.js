@@ -18,7 +18,7 @@ router.post("/logout", logoutStudent);
 // get user details
 router.get("/me", studentProtect, getMe);
 // gets all the jobs posted
-router.get("/", getJobs);
+router.get("/",studentProtect,getJobs);
 // apply for a job
 router.post("/apply/:id", studentProtect, applyForJob);
 
