@@ -26,7 +26,7 @@ function CompanySignUp() {
 			  phone,
 			  password,
 			  companyName
-			});
+			},{withCredentials: true, credentials: 'include'});
 			return console.log(response.data);
 		  } catch (error) {
 			console.error(error);

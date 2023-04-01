@@ -19,7 +19,7 @@ function StudentSignUp() {
           email,
           phone,
           password,
-        })
+        },{withCredentials: true, credentials: 'include'})
         return console.log(response.data)
       } catch (error) {
         console.error(error)

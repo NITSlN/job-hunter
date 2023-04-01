@@ -38,7 +38,7 @@ const Company = require('../models/companySchema')
 
 const studentProtect = async (req, res, next) => {
   const token = req.cookies.access_token;
-  if (!token) return next(createError(401, "You are not authenticated!"));
+  if (!token) throw new Error("You are not authenticated!");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET)
   try {
@@ -56,7 +56,7 @@ const studentProtect = async (req, res, next) => {
 
 const companyProtect = async (req, res, next) => {
   const token = req.cookies.access_token;
-  if (!token) return next(createError(401, "You are not authenticated!"));
+  if (!token) throw new Error("You are not authenticated!");
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET)
   try {

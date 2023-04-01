@@ -75,7 +75,7 @@ const Posts = () => {
   }, [])
 console.log(posts);
   return (
-    <div className="h-full flex flex-col mx-auto w-4/5 items-center gap-4">
+    <div className="h-full pt-20 flex flex-col mx-auto w-4/5 items-center gap-4">
       <div className='p-4'>
         {posts?.map((props,index)=>{
           return <Card props={props} key={index}/>

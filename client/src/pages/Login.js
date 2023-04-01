@@ -1,26 +1,32 @@
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigate = useNavigate()
   const location = useLocation().pathname
-  console.log(location)
 
   const handleSubmit = async () => {
     if (!email || !password) return alert('Fill the details first')
+   
     if (location === '/company/Login') {
-      await axios.post('/api/company/login', {
+      let res = await axios.post('/api/company/login', {
         email,
         password,
       },{withCredentials: true, credentials: 'include'})
+      if(res.status===200) navigate('/company/posts')
+      else alert('Login Unsuccessfull')
     } else {
-      await axios.post('/api/company/login', {
+      let res = await axios.post('/api/student/login', {
         email,
         password,
       },{withCredentials: true, credentials: 'include'})
+      if(res.status===200) navigate('/student/posts')
+      else alert('Login Unsuccessfull')
     }
+    
     console.log("Logged in");
   }
   return (
