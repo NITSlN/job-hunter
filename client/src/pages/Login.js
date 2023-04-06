@@ -10,24 +10,32 @@ function Login() {
 
   const handleSubmit = async () => {
     if (!email || !password) return alert('Fill the details first')
-   
+
     if (location === '/company/Login') {
-      let res = await axios.post('/api/company/login', {
-        email,
-        password,
-      },{withCredentials: true, credentials: 'include'})
-      if(res.status===200) navigate('/company/posts')
+      let res = await axios.post(
+        '/api/company/login',
+        {
+          email,
+          password,
+        },
+        { withCredentials: true, credentials: 'include' },
+      )
+      if (res.status === 200) navigate('/company/posts')
       else alert('Login Unsuccessfull')
     } else {
-      let res = await axios.post('/api/student/login', {
-        email,
-        password,
-      },{withCredentials: true, credentials: 'include'})
-      if(res.status===200) navigate('/student/posts')
+      let res = await axios.post(
+        '/api/student/login',
+        {
+          email,
+          password,
+        },
+        { withCredentials: true, credentials: 'include' },
+      )
+      if (res.status === 200) navigate('/student/posts')
       else alert('Login Unsuccessfull')
     }
-    
-    console.log("Logged in");
+
+    console.log('Logged in')
   }
   return (
     <div className="bg-black">

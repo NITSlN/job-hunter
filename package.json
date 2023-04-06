@@ -9,7 +9,7 @@
     "frontend:install": "npm i --prefix client ",
     "backend:install": "npm i --prefix server",
     "start:install": "concurrently  \"npm run frontend:install\" \" npm run backend:install\"",
-    "start:dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",

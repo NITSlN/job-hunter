@@ -113,16 +113,22 @@ const applyForJob = async (req, res) => {
     const jobId = req.params.id;
     const userId = req.user.id;
     const job = await Jobs.findById(jobId);
+    console.log(jobId, userId);
     if (job.applied.includes(userId)) {
       return res.json("You have already applied for the role.");
     }
-    job.applied.push(userId);
-    await job.save();
+    await Jobs.findOneAndUpdate(
+      { id: jobId },
+      { $addToSet: { applied: userId } },
+      { new: true }
+    );
 
-    const student = await Student.findOne({id:userId})
-    console.log(student);
-    student.applications.push(jobId)
-    await student.save()
+    await Student.findOneAndUpdate(
+      { id: userId },
+      { $addToSet: { applications: jobId } },
+      { new: true }
+    );
+    
     res.status(200).json("Applied");
   } catch (error) {
     console.log(error);

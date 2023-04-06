@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 const PostJob = () => {
   const [role, setRole] = useState('')
@@ -12,29 +12,42 @@ const PostJob = () => {
   const [type, setType] = useState('')
   const [mode, setMode] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!role || !description || !skills || !duration || !stipend || !positions || !type || !mode) {
+    if (
+      !role ||
+      !description ||
+      !skills ||
+      !duration ||
+      !stipend ||
+      !positions ||
+      !type ||
+      !mode
+    ) {
       // return an alert that states "Please fill all the required fields"
-      return alert('Please fill all the required fields');
-      
+      return alert('Please fill all the required fields')
     }
-    axios.post('/api/company/postJob',{
-      role,
-      description,
-      skills,
-      duration,
-      stipend,
-      positions,
-      type,
-      mode,
-    }, { withCredentials: true }).then(()=>{
-      navigate('/company/posts')
-      console.log("redirect");
-    })         // for cookies this must be set
-    
+    axios
+      .post(
+        '/api/company/postJob',
+        {
+          role,
+          description,
+          skills,
+          duration,
+          stipend,
+          positions,
+          type,
+          mode,
+        },
+        { withCredentials: true },
+      )
+      .then(() => {
+        navigate('/api/company/posts')
+        console.log('redirect')
+      }) // for cookies this must be set
   }
 
   return (
@@ -87,13 +100,13 @@ const PostJob = () => {
             onChange={(e) => setSkills(e.target.value)}
           />
         </div>
-        
+
         <div className="mb-4">
           <label
             className="block text-gray-700 font-bold mb-2"
             htmlFor="duration"
           >
-            Duration <span className='text-sm text-gray-500'>(in Months)</span>
+            Duration <span className="text-sm text-gray-500">(in Months)</span>
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -137,30 +150,30 @@ const PostJob = () => {
           />
         </div>
         <div className="flex justify-between">
-        <div className="relative">
-          <select
-            className="block w-full rounded-md border-green-300 text-gray-700 focus:outline-none font-bold text-md mt-2 mb-4"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value="">Select job type</option>
-            <option value="full-time">Full-time</option>
-            <option value="part-time">Part-time</option>
-            <option value="semi-full-time">Semi-full-time</option>
-          </select>
-        </div>
-        <div className="relative">
-          <select
-            className="block w-full rounded-md border-green-300 text-gray-700 focus:outline-none font-bold text-md mt-2 mb-4"
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
-          >
-            <option value="">Select mode of work</option>
-            <option value="wfh">Work from home</option>
-            <option value="in-office">In-office</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
-        </div>
+          <div className="relative">
+            <select
+              className="block w-full rounded-md border-green-300 text-gray-700 focus:outline-none font-bold text-md mt-2 mb-4"
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="">Select job type</option>
+              <option value="full-time">Full-time</option>
+              <option value="part-time">Part-time</option>
+              <option value="semi-full-time">Semi-full-time</option>
+            </select>
+          </div>
+          <div className="relative">
+            <select
+              className="block w-full rounded-md border-green-300 text-gray-700 focus:outline-none font-bold text-md mt-2 mb-4"
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+            >
+              <option value="">Select mode of work</option>
+              <option value="wfh">Work from home</option>
+              <option value="in-office">In-office</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
         </div>
 
         <div className="flex items-center justify-between">
