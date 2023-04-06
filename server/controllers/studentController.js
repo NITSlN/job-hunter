@@ -10,7 +10,7 @@ const getJobs = async (req, res) => {
   try {
     let jobs = await Jobs.find();
     const appliedJobs = req.user.applications; // convert ObjectIds to strings
-    
+    console.log(appliedJobs);
     // Filter out jobs that have an id in the appliedJobs array
     jobs = jobs.filter(job => !appliedJobs.includes(job.id));
     
@@ -112,28 +112,27 @@ const applyForJob = async (req, res) => {
   try {
     const jobId = req.params.id;
     const userId = req.user.id;
-    const job = await Jobs.findById(jobId);
     console.log(jobId, userId);
     if (job.applied.includes(userId)) {
       return res.json("You have already applied for the role.");
     }
     await Jobs.findOneAndUpdate(
-      { id: jobId },
+      { _id: jobId },
       { $addToSet: { applied: userId } },
       { new: true }
     );
 
     await Student.findOneAndUpdate(
-      { id: userId },
+      { _id: userId },
       { $addToSet: { applications: jobId } },
       { new: true }
     );
-    
     res.status(200).json("Applied");
   } catch (error) {
     console.log(error);
   }
 };
+
 const logoutStudent = (req,res)=>{
   res.cookie("access_token","",{ maxAge: 1 }).json({})
 }
