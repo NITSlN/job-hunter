@@ -7,6 +7,8 @@ import Posts from './pages/student/Posts'
 import PostJob from './pages/company/PostJob'
 import Navbar from './components/Navbar'
 import Dashboard from './pages/company/Dashboard'
+import ListedJobs from './pages/company/ListedJobs'
+import Applications from './pages/company/Applications'
 
 function App() {
   
@@ -24,6 +26,8 @@ function App() {
         <Route path="/student/Login" element={<Login/>} />
         <Route path="/student/posts" element={<><Navbar/><Posts/></>} />
         <Route path="/company/profile" element={<Dashboard/>} />
+        <Route path="/company/posts" element={<><Navbar/><ListedJobs/></>} />
+        <Route path="/company/posts/:id" element={<><Navbar/> <Applications/> </>} />
         <Route
         path="*"
         element={<Navigate to="/student" replace />}

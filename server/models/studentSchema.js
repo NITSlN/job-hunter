@@ -17,6 +17,7 @@ const studentSchema = new Schema({
     required: true,
     unique: true,
   },
+  imgUrl:String,
   password: {
     type: String,
     required: true,
@@ -36,6 +37,9 @@ const studentSchema = new Schema({
       endYear: Number,
     },
   ],
+  ResumeLink:{
+    type:String,
+  },
   workExperience: [
     {
       company: String,

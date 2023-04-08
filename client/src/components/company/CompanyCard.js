@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-const Card = ({ props }) => {
+import { useNavigate } from 'react-router-dom'
+const CompanyCard = ({ props }) => {
   console.log(props)
   const {
     _id,
@@ -13,7 +14,12 @@ const Card = ({ props }) => {
     positions,
   } = props
 
-  const handleApply = async (id) => {
+  const navigate = useNavigate()
+  const seeApplications = async (id) => {
+    console.log("ok");
+    navigate('/company/posts/'+id)
+  }
+  const stopApplications = async (id) => {
     const res = await axios.post('/api/student/apply/' + id, {
       withCredentials: true,
       credentials: 'include',
@@ -50,14 +56,22 @@ const Card = ({ props }) => {
           </span>
         </div>
       </div>
+      <div className='flex text-sm'>
       <button
-        onClick={() => handleApply(_id)}
-        className="w-full bg-green-500 font-semibold mb-12 rounded-br-lg rounded-bl-lg py-1"
+        onClick={() => stopApplications(_id)}
+        className="w-full bg-red-500 text-white mb-12 rounded-bl-lg py-2"
       >
-        Apply
+        Stop Applications
       </button>
+      <button
+        onClick={() => seeApplications(_id)}
+        className="w-full bg-green-500  mb-12 rounded-br-lg py-2"
+      >
+        See Applications
+      </button>
+      </div>
     </div>
   )
 }
 
-export default Card
+export default CompanyCard

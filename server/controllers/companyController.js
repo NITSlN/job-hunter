@@ -184,6 +184,7 @@ const getStudents = async (req, res) => {
       .catch((error) => {
         console.log(error)
       })
+      console.log(appliedStudentDetails);
     res.status(200).json(appliedStudentDetails)
   } catch (error) {
     console.log(error)
