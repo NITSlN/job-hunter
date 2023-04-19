@@ -37,7 +37,7 @@ const studentSchema = new Schema({
       endYear: Number,
     },
   ],
-  ResumeLink:{
+  resumeLink:{
     type:String,
   },
   workExperience: [
