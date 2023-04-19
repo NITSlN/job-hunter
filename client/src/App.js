@@ -9,7 +9,7 @@ import Navbar from './components/Navbar'
 import Dashboard from './pages/company/Dashboard'
 import ListedJobs from './pages/company/ListedJobs'
 import Applications from './pages/company/Applications'
-import Profile from './pages/student/Profile'
+import StudentProfile from './pages/student/StudentProfile'
 
 function App() {
   
@@ -27,7 +27,7 @@ function App() {
         <Route path="/student/Login" element={<Login/>} />
         <Route path="/student/posts" element={<><Navbar/><Posts/></>} />
         <Route path="/company/profile" element={<Dashboard/>} />
-        <Route path="/student/profile" element={<Profile/>} />
+        <Route path="/student/profile" element={<StudentProfile/>} />
         <Route path="/company/posts" element={<><Navbar/><ListedJobs/></>} />
         <Route path="/company/posts/:id" element={<><Navbar/> <Applications/> </>} />
         <Route

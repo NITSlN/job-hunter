@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { AuthContext } from '../context/AuthContext'
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const {setIsStudentLoggedIn} = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation().pathname
-
+  
   const handleSubmit = async () => {
     if (!email || !password) return alert('Fill the details first')
 
+    // Login based on URL
     if (location === '/company/Login') {
       let res = await axios.post(
         '/api/company/login',
@@ -20,7 +23,10 @@ function Login() {
         },
         { withCredentials: true, credentials: 'include' },
       )
-      if (res.status === 200) navigate('/company/posts')
+      if (res.status === 200) {
+        setIsStudentLoggedIn(false)
+        navigate('/company/posts')
+      }
       else alert('Login Unsuccessfull')
     } else {
       let res = await axios.post(
@@ -31,10 +37,12 @@ function Login() {
         },
         { withCredentials: true, credentials: 'include' },
       )
-      if (res.status === 200) navigate('/student/posts')
+      if (res.status === 200) {
+        setIsStudentLoggedIn(true)
+        navigate('/student/posts')
+      }
       else alert('Login Unsuccessfull')
     }
-
     console.log('Logged in')
   }
   return (
