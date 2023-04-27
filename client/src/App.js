@@ -6,7 +6,7 @@ import CompanySignUp from './pages/company/CompanySignUp'
 import Posts from './pages/student/Posts'
 import PostJob from './pages/company/PostJob'
 import Navbar from './components/Navbar'
-import Dashboard from './pages/company/Dashboard'
+import Dashboard from './pages/company/CompanyProfile'
 import ListedJobs from './pages/company/ListedJobs'
 import Applications from './pages/company/Applications'
 import StudentProfile from './pages/student/StudentProfile'
@@ -26,8 +26,8 @@ function App() {
         <Route path="/company/Login" element={<Login/>} />
         <Route path="/student/Login" element={<Login/>} />
         <Route path="/student/posts" element={<><Navbar/><Posts/></>} />
-        <Route path="/company/profile" element={<Dashboard/>} />
-        <Route path="/student/profile" element={<StudentProfile/>} />
+        <Route path="/company/profile" element={<><Navbar/><Dashboard/></>} />
+        <Route path="/student/profile" element={<><Navbar/><StudentProfile/></>} />
         <Route path="/company/posts" element={<><Navbar/><ListedJobs/></>} />
         <Route path="/company/posts/:id" element={<><Navbar/> <Applications/> </>} />
         <Route

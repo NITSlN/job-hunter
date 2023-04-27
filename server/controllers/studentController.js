@@ -133,6 +133,28 @@ const applyForJob = async (req, res) => {
   }
 };
 
+// @desc    Add education
+// @route   POST /api/student/education
+// @access  Private
+const addEducation = async (req, res) => {
+  const { school, degree, fieldOfStudy, startYear, endYear } = req.body
+  const studentId = req.user.id
+
+  try {
+    const student = await Student.findById(studentId)
+    if (!student) {
+      return res.status(404).json({ msg: 'Student not found' })
+    }
+
+    student.education.push({ school, degree, fieldOfStudy, startYear, endYear })
+    await student.save()
+
+    res.json(student)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+}
 const logoutStudent = (req,res)=>{
   res.cookie("access_token","",{ maxAge: 1 }).json({})
 }
@@ -142,5 +164,6 @@ module.exports = {
   loginStudent,
   getMe,
   applyForJob,
-  logoutStudent
+  logoutStudent,
+  addEducation
 };
