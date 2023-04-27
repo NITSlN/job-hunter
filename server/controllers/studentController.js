@@ -155,6 +155,26 @@ const addEducation = async (req, res) => {
     res.status(500).send('Server Error')
   }
 }
+
+const deleteEducation = async (req, res) => {
+  const studentId = req.user.id
+  const educationId = req.params.id
+
+  try {
+    const student = await Student.findById(studentId)
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' })
+    }
+
+    student.education = student.education.filter((edu) => edu._id != educationId)
+    await student.save()
+
+    res.json({ message: 'Education deleted successfully' })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ message: 'Server Error' })
+  }
+}
 const logoutStudent = (req,res)=>{
   res.cookie("access_token","",{ maxAge: 1 }).json({})
 }
@@ -165,5 +185,6 @@ module.exports = {
   getMe,
   applyForJob,
   logoutStudent,
-  addEducation
+  addEducation,
+  deleteEducation
 };

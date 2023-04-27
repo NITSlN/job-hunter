@@ -7,6 +7,7 @@ const {
   applyForJob,
   logoutStudent,
   addEducation,
+  deleteEducation,
 } = require("../controllers/studentController");
 const { studentProtect } = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -24,5 +25,7 @@ router.get("/",studentProtect,getJobs);
 router.post("/apply/:id", studentProtect, applyForJob);
 // Add Education
 router.post("/education", studentProtect, addEducation);
+
+router.delete('/education/:id',studentProtect, deleteEducation);
 
 module.exports = router;

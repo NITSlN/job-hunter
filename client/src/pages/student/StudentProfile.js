@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import AddEducation from './AddEducation'
+import {RiDeleteBin6Line} from 'react-icons/ri'
 function StudentProfile() {
   const [profile, setProfile] = useState({})
   const [educationModal, setEducationModal] = useState(false)
@@ -18,15 +19,25 @@ function StudentProfile() {
         setError(error.message)
       })
   }, [])
-  console.log('profile')
+  console.log(profile)
 
+  const deleteEducation = async (_id)=>{
+    await axios.delete(`/api/student/education/`+_id)
+      .then(() => {
+        console.log('Education deleted successfully')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    window.location.reload()
+  }
   if (error) <div>Error: {error}</div>
   if (!profile) <div>..Loading</div>
   return (
     <div className="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-bold mb-2">{profile.name}'s Profile</h1>
       <div className="bg-white shadow rounded-lg p-6">
-        <div className="flex mb-4">
+        <div className="flex mb-4 items-center">
           <img
             src="https://media.istockphoto.com/id/1288538088/photo/portrait-young-confident-smart-asian-businessman-look-at-camera-and-smile.jpg?b=1&s=170667a&w=0&k=20&c=EcjlfC0hE33usx5Ys_ftE1iC0TlgKG1pSqclpOULGLk="
             alt="Profile"
@@ -36,12 +47,12 @@ function StudentProfile() {
             <h2 className="text-lg font-semibold">{profile.name}</h2>
             <p className="text-gray-600">{profile.email}</p>
             <p className="text-gray-600">{profile.phone}</p>
-            <Link
+            {/* <Link
               to="/student/edit-profile"
               className="text-indigo-600 hover:text-indigo-800"
             >
               Edit Profile
-            </Link>
+            </Link> */}
           </div>
         </div>
         <div className="mb-4">
@@ -56,15 +67,18 @@ function StudentProfile() {
           </h3>
           {educationModal && <AddEducation />}
           {profile.education?.length > 0 ? (
-            profile.education.map((edu) => (
-              <div key={edu._id} className="mb-2">
-                <p className="font-semibold">{edu.degree}</p>
-                <p className="text-gray-600">{edu.school}</p>
+            profile.education.map(({degree, school, startYear, endYear, _id}) => 
+              <div className='flex w-full justify-between'>
+                <div key={_id} className="mb-2">
+                <p className="font-semibold">{degree}</p>
+                <p className="text-gray-600">{school}</p>
                 <p className="text-gray-600">
-                  {edu.startYear} - {edu.endYear}
+                  {startYear} - {endYear}
                 </p>
               </div>
-            ))
+                <div className='cursor-pointer' onClick={()=>deleteEducation(_id)}><RiDeleteBin6Line/></div>
+              </div>
+            )
           ) : (
             <p className="text-gray-500">No education added.</p>
           )}
