@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom'
 import AddEducation from './AddEducation'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import AddWorkExperience from './AddWorkExperience'
+import AddSkills from './AddSkills'
 function StudentProfile() {
   const [profile, setProfile] = useState({})
   const [educationModal, setEducationModal] = useState(false)
   const [workModal, setWorkModal] = useState(false)
+  const [skillInput, setSkillInput] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -131,11 +133,11 @@ function StudentProfile() {
                   </p>
                 </div>
                 <div
-                    className="cursor-pointer mt-2"
-                    onClick={() => deleteExp(exp._id)}
-                  >
-                    <RiDeleteBin6Line />
-                  </div>
+                  className="cursor-pointer mt-2"
+                  onClick={() => deleteExp(exp._id)}
+                >
+                  <RiDeleteBin6Line />
+                </div>
               </div>
             ))
           ) : (
@@ -145,14 +147,30 @@ function StudentProfile() {
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
             Skills{' '}
-            <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
+            <span
+              onClick={() => setSkillInput(true)}
+              className="text-blue-700 text-sm cursor-pointer"
+            >
+              Add+
+            </span>
           </h3>
+          {skillInput && (
+            <AddSkills
+              setSkillInput={setSkillInput}
+              skills={profile.skills ? profile.skills?.join(', ') : ''}
+            />
+          )}
           {profile.skills?.length > 0 ? (
-            <ul>
+            <div className="my-3">
               {profile.skills.map((skill) => (
-                <li key={skill}>{skill}</li>
+                <span
+                  className="rounded-full px-4 py-2 pb-[10px] mx-1 bg-gray-200"
+                  key={skill}
+                >
+                  {skill}
+                </span>
               ))}
-            </ul>
+            </div>
           ) : (
             <p className="text-gray-500">No skills added.</p>
           )}

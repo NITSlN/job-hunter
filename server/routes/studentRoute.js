@@ -10,6 +10,7 @@ const {
   deleteEducation,
   addExperience,
   deleteExperience,
+  addSkills,
 } = require("../controllers/studentController");
 const { studentProtect } = require("../middleware/authMiddleware");
 const router = express.Router();
@@ -34,5 +35,7 @@ router.post('/work-experience', studentProtect, addExperience);
 
 // DELETE /api/student/work-experience/:id
 router.delete('/work-experience/:id', studentProtect, deleteExperience);
+// Add Skill
+router.put('/skills', studentProtect, addSkills);
 
 module.exports = router;

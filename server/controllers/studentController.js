@@ -243,6 +243,32 @@ const deleteExperience = async (req, res) => {
     res.status(500).json({ message: 'Server error' })
   }
 }
+// @desc    Add skills
+// @route   POST /api/student/skills
+// @access  Private
+const addSkills = async (req, res) => {
+  const { skills } = req.body;
+  const trimmedSkills = skills?.split(",").map((skill) => skill.trim()) || [];
+
+  try {
+    const student = await Student.findById(req.user.id);
+
+    if (skills.length === 0) {
+      student.skills = [];
+      await student.save();
+      return res.status(400).json({ message: "Please provide at least one skill" });
+    }
+
+    student.skills = trimmedSkills;
+    await student.save();
+
+    res.status(200).json({ message: "Skills added successfully", student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 const logoutStudent = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
@@ -257,5 +283,6 @@ module.exports = {
   addEducation,
   deleteEducation,
   addExperience,
-  deleteExperience
+  deleteExperience,
+  addSkills,
 }
