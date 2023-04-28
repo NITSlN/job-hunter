@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import AddEducation from './AddEducation'
-import {RiDeleteBin6Line} from 'react-icons/ri'
+import { RiDeleteBin6Line } from 'react-icons/ri'
+import AddWorkExperience from './AddWorkExperience'
 function StudentProfile() {
   const [profile, setProfile] = useState({})
   const [educationModal, setEducationModal] = useState(false)
+  const [workModal, setWorkModal] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -21,8 +23,20 @@ function StudentProfile() {
   }, [])
   console.log(profile)
 
-  const deleteEducation = async (_id)=>{
-    await axios.delete(`/api/student/education/`+_id)
+  const deleteEducation = async (_id) => {
+    await axios
+      .delete(`/api/student/education/` + _id)
+      .then(() => {
+        console.log('Education deleted successfully')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+    window.location.reload()
+  }
+  const deleteExp = async (_id) => {
+    await axios
+      .delete(`/api/student/work-experience/` + _id)
       .then(() => {
         console.log('Education deleted successfully')
       })
@@ -64,20 +78,30 @@ function StudentProfile() {
             >
               Add+
             </span>
+            <hr />
           </h3>
-          {educationModal && <AddEducation setEducationModal={setEducationModal}/>}
+          {educationModal && (
+            <AddEducation setEducationModal={setEducationModal} />
+          )}
           {profile.education?.length > 0 ? (
-            profile.education.map(({degree, school, startYear, endYear, _id}) => 
-              <div className='flex w-full justify-between'>
-                <div key={_id} className="mb-2">
-                <p className="font-semibold">{degree}</p>
-                <p className="text-gray-600">{school}</p>
-                <p className="text-gray-600">
-                  {startYear} - {endYear}
-                </p>
-              </div>
-                <div className='cursor-pointer' onClick={()=>deleteEducation(_id)}><RiDeleteBin6Line/></div>
-              </div>
+            profile.education.map(
+              ({ degree, school, startYear, endYear, _id }) => (
+                <div className="flex w-full justify-between">
+                  <div key={_id} className="mb-2">
+                    <p className="font-semibold">{degree}</p>
+                    <p className="text-gray-600">{school}</p>
+                    <p className="text-gray-600">
+                      {startYear} - {endYear}
+                    </p>
+                  </div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => deleteEducation(_id)}
+                  >
+                    <RiDeleteBin6Line />
+                  </div>
+                </div>
+              ),
             )
           ) : (
             <p className="text-gray-500">No education added.</p>
@@ -85,17 +109,33 @@ function StudentProfile() {
         </div>
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
-            Work Experience <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
+            Work Experience{' '}
+            <span
+              onClick={() => setWorkModal(true)}
+              className="text-blue-700 text-sm cursor-pointer"
+            >
+              Add+
+            </span>
+            <hr />
           </h3>
+          {workModal && <AddWorkExperience setWorkModal={setWorkModal} />}
           {profile.workExperience?.length > 0 ? (
             profile.workExperience.map((exp) => (
-              <div key={exp._id} className="mb-2">
-                <p className="font-semibold">{exp.position}</p>
-                <p className="text-gray-600">{exp.company}</p>
-                <p className="text-gray-600">
-                  {new Date(exp.startDate).toLocaleDateString()} -{' '}
-                  {new Date(exp.endDate).toLocaleDateString()}
-                </p>
+              <div className="flex w-full justify-between">
+                <div key={exp._id} className="mb-2">
+                  <span className="font-semibold">{exp.company}</span> -
+                  <span className="text-gray-600"> {exp.position}</span>
+                  <p className="text-gray-600 text-sm">
+                    {new Date(exp.startDate).toLocaleDateString()} -{' '}
+                    {new Date(exp.endDate).toLocaleDateString()}
+                  </p>
+                </div>
+                <div
+                    className="cursor-pointer mt-2"
+                    onClick={() => deleteExp(exp._id)}
+                  >
+                    <RiDeleteBin6Line />
+                  </div>
               </div>
             ))
           ) : (
@@ -104,7 +144,8 @@ function StudentProfile() {
         </div>
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
-            Skills <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
+            Skills{' '}
+            <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
           </h3>
           {profile.skills?.length > 0 ? (
             <ul>
@@ -118,7 +159,8 @@ function StudentProfile() {
         </div>
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
-            Certifications <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
+            Certifications{' '}
+            <span className="text-blue-700 text-sm cursor-pointer">Add+</span>
           </h3>
           {profile.certifications?.length > 0 ? (
             profile.certifications.map((cert) => (
