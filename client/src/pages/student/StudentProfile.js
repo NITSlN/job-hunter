@@ -65,7 +65,7 @@ function StudentProfile() {
               Add+
             </span>
           </h3>
-          {educationModal && <AddEducation />}
+          {educationModal && <AddEducation setEducationModal={setEducationModal}/>}
           {profile.education?.length > 0 ? (
             profile.education.map(({degree, school, startYear, endYear, _id}) => 
               <div className='flex w-full justify-between'>

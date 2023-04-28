@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 
-const AddEducation = () => {
+const AddEducation = ({ setEducationModal }) => {
   const [degree, setDegree] = useState('')
   const [school, setSchool] = useState('')
   const [startYear, setStartYear] = useState('')
@@ -10,7 +10,8 @@ const AddEducation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
+    if (!degree || !school || !startYear || !endYear)
+      return alert('Please fill all the info')
     const newEducation = { degree, school, startYear, endYear }
 
     axios
@@ -26,7 +27,7 @@ const AddEducation = () => {
         setError(error.response.data.message)
       })
 
-      window.location.reload()
+    window.location.reload()
   }
 
   if (error) <div>Error: {error}</div>
@@ -38,58 +39,70 @@ const AddEducation = () => {
         </span> */}
         <form
           onSubmit={handleSubmit}
-          className="text-gray-600 flex flex-wrap gap-2"
+          className="text-gray-600 flex flex-col flex-wrap gap-2 w-1/2"
         >
-          <div>
-            <label htmlFor="school" className='p-2'> School</label>
+          <div className="flex flex-col">
+            <label htmlFor="school"> School</label>
             <input
               type="text"
               name="school"
               id="school"
               value={school}
+              className="border-2"
               onChange={(e) => setSchool(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="degree" className='p-2'>Degree</label>
+          <div className="flex flex-col">
+            <label htmlFor="degree">Degree</label>
             <input
               type="text"
               name="degree"
               id="degree"
               value={degree}
+              className="border-2"
               onChange={(e) => setDegree(e.target.value)}
             />
           </div>
 
-          <div>
-            <div>
-              <label htmlFor="startYear" className='p-2'>Start Year</label>
-              <input
-                type="text"
-                name="startYear"
-                id="startYear"
-                value={startYear}
-                onChange={(e) => setStartYear(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="endYear" className='p-2'>End Year</label>
-              <input
-                type="text"
-                name="endYear"
-                id="endYear"
-                value={endYear}
-                onChange={(e) => setEndYear(e.target.value)}
-              />
-            </div>
+          <div className="flex flex-col">
+            <label htmlFor="startYear">Start Year</label>
+            <input
+              type="text"
+              name="startYear"
+              id="startYear"
+              value={startYear}
+              className="border-2"
+              onChange={(e) => setStartYear(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="endYear">End Year</label>
+            <input
+              type="text"
+              name="endYear"
+              id="endYear"
+              value={endYear}
+              className="border-2"
+              onChange={(e) => setEndYear(e.target.value)}
+            />
           </div>
           {error && <div className="error">{error}</div>}
+          <div className='flex gap-2 justify-end'>
           <button
-            className="border-2 text-white bg-green-500 px-4 "
+            className="text-white bg-green-500 px-4 rounded-md"
             type="submit"
           >
             Add
           </button>
+          <button
+            className="text-white bg-red-500 px-4 rounded-md"
+            onClick={() => setEducationModal(false)}
+            type="button"
+          >
+            Cancel
+          </button>
+          
+          </div>
         </form>
       </div>
     </div>
