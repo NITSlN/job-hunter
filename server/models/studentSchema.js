@@ -52,10 +52,10 @@ const studentSchema = new Schema({
   skills: [String],
   certifications: [
     {
-      name: String,
+      certificateName: String,
       issuingOrganization: String,
+      certificateLink:String,
       issueDate: Date,
-      // expirationDate: Date
     },
   ],
   savedJobs: [

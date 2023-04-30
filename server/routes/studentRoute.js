@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express')
 const {
   registerStudent,
   loginStudent,
@@ -11,31 +11,38 @@ const {
   addExperience,
   deleteExperience,
   addSkills,
-} = require("../controllers/studentController");
-const { studentProtect } = require("../middleware/authMiddleware");
-const router = express.Router();
+  addCertificate,
+  deleteCertificate,
+} = require('../controllers/studentController')
+const { studentProtect } = require('../middleware/authMiddleware')
+const router = express.Router()
 
 // base URL - /api/student
 
-router.post("/register", registerStudent);
-router.post("/login", loginStudent);
-router.post("/logout", logoutStudent);
+router.post('/register', registerStudent)
+router.post('/login', loginStudent)
+router.post('/logout', logoutStudent)
 // get user details
-router.get("/me", studentProtect, getMe);
+router.get('/me', studentProtect, getMe)
 // gets all the jobs posted
-router.get("/",studentProtect,getJobs);
+router.get('/', studentProtect, getJobs)
 // apply for a job
-router.post("/apply/:id", studentProtect, applyForJob);
+router.post('/apply/:id', studentProtect, applyForJob)
 // Add Education
-router.post("/education", studentProtect, addEducation);
+router.post('/education', studentProtect, addEducation)
 
-router.delete('/education/:id',studentProtect, deleteEducation);
+router.delete('/education/:id', studentProtect, deleteEducation)
 
-router.post('/work-experience', studentProtect, addExperience);
+router.post('/work-experience', studentProtect, addExperience)
 
 // DELETE /api/student/work-experience/:id
-router.delete('/work-experience/:id', studentProtect, deleteExperience);
-// Add Skill
-router.put('/skills', studentProtect, addSkills);
+router.delete('/work-experience/:id', studentProtect, deleteExperience)
 
-module.exports = router;
+// Add Skill
+router.put('/skills', studentProtect, addSkills)
+
+router.put('/certificates', studentProtect, addCertificate)
+
+router.delete('/certificates/:id', studentProtect, deleteCertificate)
+
+module.exports = router

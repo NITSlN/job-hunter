@@ -10,7 +10,6 @@ const getJobs = async (req, res) => {
   try {
     let jobs = await Jobs.find()
     const appliedJobs = req.user.applications // convert ObjectIds to strings
-    console.log(appliedJobs)
     // Filter out jobs that have an id in the appliedJobs array
     jobs = jobs.filter((job) => !appliedJobs.includes(job.id))
 
@@ -77,7 +76,6 @@ const loginStudent = async (req, res) => {
     // Check for user email
     const user = await Student.findOne({ email })
 
-    console.log(user)
     if (user && (await bcrypt.compareSync(password, user.password))) {
       res
         .cookie('access_token', generateToken(user._id), {
@@ -117,7 +115,6 @@ const applyForJob = async (req, res) => {
   try {
     const jobId = req.params.id
     const userId = req.user.id
-    console.log(jobId, userId)
     if (job.applied.includes(userId)) {
       return res.json('You have already applied for the role.')
     }
@@ -269,6 +266,37 @@ const addSkills = async (req, res) => {
   }
 };
 
+const addCertificate = async (req, res) => {
+  const { certificateName, cercertificateLink, issuingOrganization, issueDate } = req.body;
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    student.certifications.push({ certificateName, cercertificateLink, issuingOrganization, issueDate });
+    await student.save();
+    res.status(200).json({ message: 'Certificate added successfully', student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const deleteCertificate = async (req, res) => {
+  const { id:certificateId } = req.params;
+  try {
+    const student = await Student.findById(req.user.id);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+    student.certifications = student.certifications.filter(cert => cert.id !== certificateId);
+    await student.save();
+    res.status(200).json({ message: 'Certificate deleted successfully', student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 const logoutStudent = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
@@ -285,4 +313,6 @@ module.exports = {
   addExperience,
   deleteExperience,
   addSkills,
+  addCertificate,
+  deleteCertificate
 }
