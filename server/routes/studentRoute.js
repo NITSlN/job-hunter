@@ -13,6 +13,7 @@ const {
   addSkills,
   addCertificate,
   deleteCertificate,
+  updateResumeLink,
 } = require('../controllers/studentController')
 const { studentProtect } = require('../middleware/authMiddleware')
 const router = express.Router()
@@ -44,5 +45,7 @@ router.put('/skills', studentProtect, addSkills)
 router.put('/certificates', studentProtect, addCertificate)
 
 router.delete('/certificates/:id', studentProtect, deleteCertificate)
+
+router.put('/resume', studentProtect,updateResumeLink);
 
 module.exports = router

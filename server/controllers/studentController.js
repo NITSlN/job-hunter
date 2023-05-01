@@ -298,6 +298,17 @@ const deleteCertificate = async (req, res) => {
   }
 };
 
+const updateResumeLink = async (req, res) => {
+  try {
+    const student = await Student.findById(req.user.id);
+    student.resumeLink = req.body.resumeLink;
+    await student.save();
+    res.status(200).json({ message: 'Resume link updated successfully', student });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
 const logoutStudent = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
 }
@@ -314,5 +325,6 @@ module.exports = {
   deleteExperience,
   addSkills,
   addCertificate,
-  deleteCertificate
+  deleteCertificate,
+  updateResumeLink
 }

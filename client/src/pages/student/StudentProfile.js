@@ -6,12 +6,14 @@ import { RiDeleteBin6Line } from 'react-icons/ri'
 import AddWorkExperience from '../../components/student/AddWorkExperience'
 import AddSkills from '../../components/student/AddSkills'
 import AddCertificate from '../../components/student/AddCertificate'
+import AddResumeLink from '../../components/student/AddResumeLink'
 function StudentProfile() {
   const [profile, setProfile] = useState({})
   const [educationModal, setEducationModal] = useState(false)
   const [workModal, setWorkModal] = useState(false)
   const [skillInput, setSkillInput] = useState(false)
   const [certiModal, setCertiModal] = useState(false)
+  const [resumeModal, setResumeModal] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -78,6 +80,19 @@ function StudentProfile() {
             <h2 className="text-lg font-semibold">{profile.name}</h2>
             <p className="text-gray-600">{profile.email}</p>
             <p className="text-gray-600">{profile.phone}</p>
+            {resumeModal ? (
+              <AddResumeLink setResumeModal={setResumeModal} />
+            ) : (
+              <div className='flex gap-2 items-center'>
+                <a href={profile.resumeLink} target='_blank' className='cursor-pointer hover:underline'>Resume</a>
+                <span
+                  onClick={() => setResumeModal(true)}
+                  className="text-blue-700 text-sm cursor-pointer self-end"
+                >
+                  Edit
+                </span>
+              </div>
+            )}
             {/* <Link
               to="/student/edit-profile"
               className="text-indigo-600 hover:text-indigo-800"
@@ -205,7 +220,11 @@ function StudentProfile() {
             profile.certifications.map((cert) => (
               <div className="flex w-full justify-between">
                 <div key={cert._id} className="mb-2">
-                  <a href={cert.certificateLink} target="_blank" className='cursor-pointer hover:underline'>
+                  <a
+                    href={cert.certificateLink}
+                    target="_blank"
+                    className="cursor-pointer hover:underline"
+                  >
                     <span className="font-semibold">
                       {cert.certificateName}
                     </span>
@@ -215,8 +234,7 @@ function StudentProfile() {
                     </span>
                   </a>
                   <p className="text-gray-600 text-sm">
-                    Issued on - {" "}
-                    {new Date(cert.issueDate).toLocaleDateString()}
+                    Issued on - {new Date(cert.issueDate).toLocaleDateString()}
                   </p>
                 </div>
                 <div

@@ -32,7 +32,7 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-4 flex items-center md:ml-6">
               <Link
-                to="/"
+                to={isStudentLoggedIn?'/student/posts':'/company/posts'}
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-900"
               >
                 Home
@@ -70,7 +70,7 @@ const Navbar = () => {
               </div>
               {showMenu && (
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg">
-                  <div className="py-1 rounded-md bg-white shadow-xs">
+                  <div className="py-1 rounded-md bg-white shadow-xs" onClick={toggleMenu}>
                     <Link
                       to={`/${isStudentLoggedIn ? 'student' : 'company'}/profile`}
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"

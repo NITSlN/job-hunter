@@ -87,21 +87,7 @@ const AddEducation = ({ setEducationModal }) => {
             />
           </div>
           {error && <div className="error">{error}</div>}
-          <div className="flex gap-2 justify-end">
-            <button
-              className="text-white bg-green-500 px-4 rounded-md"
-              type="submit"
-            >
-              Add
-            </button>
-            <button
-              className="text-white bg-red-500 px-4 rounded-md"
-              onClick={() => setEducationModal(false)}
-              type="button"
-            >
-              Cancel
-            </button>
-          </div>
+          
         </form>
       </div>
     </div>
