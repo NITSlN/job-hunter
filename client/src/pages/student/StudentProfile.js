@@ -67,8 +67,8 @@ function StudentProfile() {
   if (error) <div>Error: {error}</div>
   if (!profile) <div>..Loading</div>
   return (
-    <div className="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8">
-      <h1 className="text-2xl font-bold mb-2">{profile.name}'s Profile</h1>
+    <div className='pt-24'>
+    <div className="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8 bg-green-400 rounded-lg">
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex mb-4 items-center">
           <img
@@ -250,6 +250,7 @@ function StudentProfile() {
           )}
         </div>
       </div>
+    </div>
     </div>
   )
 }
