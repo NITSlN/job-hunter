@@ -15,11 +15,11 @@ const AddSkills = ({setSkillInput,skills}) => {
   }
 
   return (
-    <div className='w-1/2'>
+    <div className='w-1/2 mt-8'>
       <input
         type="text"
         value={newSkill}
-        className='border-2 w-full mb-2'
+        className='border-2 w-full mb-2 p-2 rounded-sm'
         onChange={(e) => setNewSkill(e.target.value)}
       />
       <div className="flex gap-2 justify-end">

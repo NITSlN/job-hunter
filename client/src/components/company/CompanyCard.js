@@ -19,15 +19,15 @@ const CompanyCard = ({ props }) => {
     console.log("ok");
     navigate('/company/posts/'+id)
   }
-  const stopApplications = async (id) => {
-    const res = await axios.post('/api/student/apply/' + id, {
+  const deletePost = async (id) => {
+    const res = await axios.delete('/api/company/deletePost/' + id, {
       withCredentials: true,
       credentials: 'include',
     })
-    console.log(res)
+    window.location.reload()
   }
   return (
-    <div className="">
+    <div className="scale-[110%]">
       <div className="border-r-2 rounded-tl-lg rounded-tr-lg bg-white w-48 py-4 px-4 min-w-[500px]">
         <h1 className="font-semibold">{role}</h1>
         <h3 className="text-xs">{companyName}</h3>
@@ -58,14 +58,14 @@ const CompanyCard = ({ props }) => {
       </div>
       <div className='flex text-sm'>
       <button
-        onClick={() => stopApplications(_id)}
-        className="w-full bg-red-500 text-white mb-12 rounded-bl-lg py-2"
+        onClick={() => deletePost(_id)}
+        className="w-full  border-red-500 border-l-2 border-b-2 text-white mb-12 rounded-bl-lg py-2"
       >
-        Stop Applications
+        Delete 
       </button>
       <button
         onClick={() => seeApplications(_id)}
-        className="w-full bg-green-500  mb-12 rounded-br-lg py-2"
+        className="w-full border-green-500 border-r-2 border-b-2 border-l-2 border-l-gray-200 text-white mb-12 rounded-br-lg py-2"
       >
         See Applications
       </button>

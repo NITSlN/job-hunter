@@ -14,7 +14,7 @@ const ListedJobs = () => {
   }, [])
   console.log(posts);
   return (
-    <div className="h-full pt-20 flex flex-col mx-auto w-4/5 items-center gap-4">
+    <div className="h-full pt-20 flex flex-col mx-auto w-4/5 items-center gap-4 -z-10">
         {/*  rendering all jobs */}
       <div className="p-4">
         {posts?.map((props, index) => {

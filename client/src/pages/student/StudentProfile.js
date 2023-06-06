@@ -68,7 +68,7 @@ function StudentProfile() {
   if (!profile) <div>..Loading</div>
   return (
     <div className='pt-24'>
-    <div className="max-w-4xl mx-auto pt-12 px-4 sm:px-6 lg:px-8 bg-green-400 rounded-lg">
+    <div className="min-w-[400px] max-w-4xl mx-auto pt-12 px-[8px] bg-green-400 rounded-lg">
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex mb-4 items-center">
           <img
@@ -184,17 +184,11 @@ function StudentProfile() {
               Add+
             </span>
           </h3>
-          {skillInput && (
-            <AddSkills
-              setSkillInput={setSkillInput}
-              skills={profile.skills ? profile.skills?.join(', ') : ''}
-            />
-          )}
           {profile.skills?.length > 0 ? (
-            <div className="my-3">
+            <div className="my-3 flex flex-wrap">
               {profile.skills.map((skill) => (
                 <span
-                  className="rounded-full px-4 py-2 pb-[10px] mx-1 bg-gray-200"
+                  className="rounded-full px-4 py-2 my-1 pb-[10px] mx-1 bg-gray-200"
                   key={skill}
                 >
                   {skill}
@@ -203,6 +197,12 @@ function StudentProfile() {
             </div>
           ) : (
             <p className="text-gray-500">No skills added.</p>
+          )}
+          {skillInput && (
+            <AddSkills
+              setSkillInput={setSkillInput}
+              skills={profile.skills ? profile.skills?.join(', ') : ''}
+            />
           )}
         </div>
         <div className="mb-4">

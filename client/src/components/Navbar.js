@@ -20,7 +20,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="bg-green-400 w-full fixed shadow-lg">
+    <nav className="bg-green-400 w-full fixed shadow-lg z-10">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="flex-shrink-0 font-bold">
@@ -85,7 +85,7 @@ const Navbar = () => {
                     </Link>
                     <button
                       onClick={logoutUser}
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                      className="block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                     >
                       Logout
                     </button>

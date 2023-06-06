@@ -14,3 +14,32 @@ html, body {
     min-height: 100vh;
     background-color: black;
 }
+/* For WebKit-based browsers (Chrome, Safari, Opera) */
+::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+    border-radius: 4px; /* Set the border radius to make it rounded */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #000; /* Set the background color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #353535; /* Set the thumb color */
+    border-radius: 4px; /* Set the border radius to make it rounded */
+  }
+  
+  /* For Firefox */
+  scrollbar {
+    width: 8px; /* Adjust the width as needed */
+  }
+  
+  scrollbar-thumb {
+    background-color: #353535; /* Set the thumb color */
+    border-radius: 4px; /* Set the border radius to make it rounded */
+  }
+  
+  scrollbar-track {
+    background-color: #000; /* Set the track color */
+  }
+  
