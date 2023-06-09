@@ -1,99 +1,122 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { BiEditAlt } from 'react-icons/bi'
 const ProfilePage = () => {
-  const [company, setCompany] = useState({});
-  const [editing, setEditing] = useState(false);
+  const [company, setCompany] = useState({})
+  const [editing, setEditing] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     companyName: '',
-    email: '',
-    password: '',
     phoneNumber: '',
     description: '',
     companySize: '',
-    logo: '',
     website: '',
     linkedIn: '',
-    address: {
-      street: '',
-      city: '',
-      state: '',
-      zip: '',
-    },
-  });
+    address: '',
+  })
 
   useEffect(() => {
     const fetchCompanyProfile = async () => {
       try {
-        const response = await axios.get('/api/profile');
-        setCompany(response.data);
-        setFormData(response.data);
+        const response = await axios.get('/api/company/profile')
+        setCompany(response.data)
+        setFormData(response.data)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
-    };
+    }
 
-    fetchCompanyProfile();
-  }, []);
+    fetchCompanyProfile()
+  }, [])
 
   const handleEdit = () => {
-    setEditing(true);
-  };
+    setEditing(true)
+  }
 
   const handleCancelEdit = () => {
-    setEditing(false);
-    setFormData(company);
-  };
+    setEditing(false)
+    setFormData(company)
+  }
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.put('/api/profile', formData);
-      setCompany(response.data);
-      setEditing(false);
+      const response = await axios.put(
+        '/api/company/profile/update',
+        formData,
+        { withCredentials: true, credentials: 'include' },
+      )
+      setCompany(response.data)
+      setEditing(false)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+    <div className="container mx-auto py-8 pt-28">
+      <div className="max-w-lg mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
         <div className="p-6">
           {!editing ? (
             <>
-              <h1 className="text-3xl font-bold mb-4">{company.name}</h1>
-              <p className="text-gray-600 mb-6">{company.description}</p>
-              <h2 className="text-lg font-semibold mb-2">Contact Information</h2>
-              <p className="text-gray-600 mb-2">Email: {company.email}</p>
-              <p className="text-gray-600 mb-2">Phone Number: {company.phoneNumber}</p>
-              <p className="text-gray-600 mb-2">Website: {company.website}</p>
-              <p className="text-gray-600 mb-2">LinkedIn: {company.linkedIn}</p>
-              <p className="text-gray-600 mb-2">
-                Address: {company.address?.street}, {company.address?.city},{' '}
-                {company.address?.state}, {company.address?.zip}
-              </p>
+              <h2 className="text-3xl font-semibold mb-2">Profile</h2>
+              <span className="text-2xl font-bold mb-4">{company.companyName}</span>
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+                className="text-right scale-125 py-2 px-4 rounded mt-4"
                 onClick={handleEdit}
               >
-                Edit
+                <BiEditAlt />
               </button>
+              <hr />
+              <div className='my-2'>
+              {company.website && (
+                <a
+                  href={company.website}
+                  target="_blank"
+                  className="text-gray-600 mb-2 hover:underline"
+                >
+                  Website{' '}
+                </a>
+              )}
+              {company.linkedIn && (
+                <a
+                  href={company.linkedIn}
+                  target="_blank"
+                  className="text-gray-600 mb-2 hover:underline"
+                >
+                  LinkedIn
+                </a>
+              )}
+              </div>
+              <p className="text-gray-600 mb-2">Your Name: {company.name}</p>
+              <p className="text-gray-600 mb-2">Email: {company.email}</p>
+              <p className="text-gray-600 mb-2">
+                Phone Number: {company.phoneNumber}
+              </p>
+              <p className="text-gray-600 mb-2">
+                Company Size: {company.companySize} employees
+              </p>
+              <p className="text-gray-600 mb-2">Address: {company.address}</p>
+              <p className="text-gray-600 mt-6"> About Company</p>
+              <p className="text-gray-600 mb-6 text-justify">
+                {company.description}
+              </p>
             </>
           ) : (
             <>
               <h1 className="text-3xl font-bold mb-4">Edit Profile</h1>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Name</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Name
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -103,7 +126,9 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Company Name</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Company Name
+                  </label>
                   <input
                     type="text"
                     name="companyName"
@@ -113,27 +138,9 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Password</label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Phone Number</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Phone Number
+                  </label>
                   <input
                     type="text"
                     name="phoneNumber"
@@ -143,7 +150,9 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Description</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Description
+                  </label>
                   <textarea
                     name="description"
                     value={formData.description}
@@ -152,7 +161,9 @@ const ProfilePage = () => {
                   ></textarea>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Company Size</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Company Size
+                  </label>
                   <input
                     type="text"
                     name="companySize"
@@ -161,18 +172,11 @@ const ProfilePage = () => {
                     className="border border-gray-400 rounded px-4 py-2 w-full"
                   />
                 </div>
+
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Logo</label>
-                  <input
-                    type="text"
-                    name="logo"
-                    value={formData.logo}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Website</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Website
+                  </label>
                   <input
                     type="text"
                     name="website"
@@ -182,7 +186,9 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">LinkedIn</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    LinkedIn
+                  </label>
                   <input
                     type="text"
                     name="linkedIn"
@@ -192,41 +198,13 @@ const ProfilePage = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">Street</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Address
+                  </label>
                   <input
                     type="text"
-                    name="street"
-                    value={formData.address.street}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={formData.address.city}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">State</label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={formData.address.state}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">ZIP</label>
-                  <input
-                    type="text"
-                    name="zip"
-                    value={formData.address.zip}
+                    name="address"
+                    value={formData.address}
                     onChange={handleChange}
                     className="border border-gray-400 rounded px-4 py-2 w-full"
                   />
@@ -234,7 +212,7 @@ const ProfilePage = () => {
                 <div className="flex justify-end">
                   <button
                     type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                   >
                     Save
                   </button>
@@ -252,7 +230,7 @@ const ProfilePage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

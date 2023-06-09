@@ -39,10 +39,7 @@ const CompanySchema = new mongoose.Schema(
       type: String,
     },
     address: {
-      street: String,
-      city: String,
-      state: String,
-      zip: String,
+      type: String,
     },
     jobsPosted: {
       type: [

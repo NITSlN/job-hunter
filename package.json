@@ -23,6 +23,6 @@
   "homepage": "https://github.com/NITSlN/job-hunter#readme",
   "dependencies": {
     "concurrently": "^7.6.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.9.0"
   }
 }

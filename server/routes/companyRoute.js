@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getJobs,createJob,updateJob,deleteJob, registerCompany, loginCompany, getProfile, getStudents, logoutCompany} = require('../controllers/companyController')
+const {getJobs,createJob,updateJob,deleteJob, registerCompany, loginCompany, getProfile, getStudents, logoutCompany, updateProfile, getCompanyProfile} = require('../controllers/companyController')
 const { companyProtect } = require('../middleware/authMiddleware')
 
 
@@ -15,6 +15,10 @@ router.post('/logout', logoutCompany)
 router.get('/posts',companyProtect, getJobs)
 // Get the company profile
 router.get('/profile',companyProtect, getProfile)
+// Update profile
+router.put('/profile/update',companyProtect, updateProfile)
+// get company profile by id
+router.get('/profile/:id', getCompanyProfile);
 
 // Get all the students applied on a job
 router.get('/profile/job/:id',companyProtect, getStudents)

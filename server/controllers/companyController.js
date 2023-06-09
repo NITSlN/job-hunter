@@ -170,7 +170,7 @@ const getProfile = async (req, res) => {
     console.log(error)
   }
 }
-// @desc    get user details
+// @desc    get applied students
 // @route   GET /api/company/profile/job/:id
 // @access  Private
 const getStudents = async (req, res) => {
@@ -190,6 +190,56 @@ const getStudents = async (req, res) => {
     console.log(error)
   }
 }
+// @desc    Update company details
+// @route   GET /api/company/profile/update/
+// @access  Private
+const updateProfile = async (req, res) => {
+  try {
+    const companyId = req.user.id;
+
+    // Update the company profile with the new data
+    console.log(req.body);
+    const updatedProfile = await Company.findByIdAndUpdate(
+      companyId,
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ error: 'Company not found' });
+    }
+
+    res.json({ message: 'Company profile updated successfully', company: updatedProfile });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+// @desc    Update company details by id
+// @route   GET /api/company/profile/:id
+// @access  Public
+const getCompanyProfile = async (req, res) => {
+  try {
+    const companyId = req.params.id;
+  
+    // Retrieve company profile from MongoDB based on companyId
+    const companyProfile = await Company.findById(companyId);
+
+    if (!companyProfile) {
+      // Handle case when company profile is not found
+      return res.status(404).json({ error: 'Company profile not found' });
+    }
+
+    // Render the company profile template or return the profile data as JSON
+    res.render('company-profile', { companyProfile });
+  } catch (error) {
+    // Handle any errors that occur during the retrieval process
+    console.error('Error retrieving company profile:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 const logoutCompany = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
 }
@@ -203,4 +253,6 @@ module.exports = {
   getProfile,
   getStudents,
   logoutCompany,
+  updateProfile,
+  getCompanyProfile
 }
