@@ -309,6 +309,15 @@ const updateResumeLink = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 }
+const getStudentProfile = async (req, res) => {
+  try {
+    const student = await Student.findById(req.params.id);
+    res.status(200).json(student);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
 const logoutStudent = (req, res) => {
   res.cookie('access_token', '', { maxAge: 1 }).json({})
 }
@@ -326,5 +335,6 @@ module.exports = {
   addSkills,
   addCertificate,
   deleteCertificate,
-  updateResumeLink
+  updateResumeLink,
+  getStudentProfile
 }

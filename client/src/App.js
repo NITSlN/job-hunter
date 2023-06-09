@@ -26,8 +26,10 @@ function App() {
         <Route path="/company/Login" element={<Login/>} />
         <Route path="/student/Login" element={<Login/>} />
         <Route path="/student/posts" element={<><Navbar/><Posts/></>} />
-        <Route path="/company/profile" element={<><Navbar/><Dashboard/></>} />
-        <Route path="/student/profile" element={<><Navbar/><StudentProfile/></>} />
+        <Route path="/company/profile" element={<><Navbar/><Dashboard OwnProfile={true}/></>} />
+        <Route path="/student/companyProfile/:id" element={<><Navbar/><Dashboard/></>} />
+        <Route path="/student/profile" element={<><Navbar/><StudentProfile OwnProfile={true}/></>} />
+        <Route path="/company/studentProfile/:id" element={<><Navbar/><StudentProfile/></>} />
         <Route path="/company/posts" element={<><Navbar/><ListedJobs/></>} />
         <Route path="/company/posts/:id" element={<><Navbar/> <Applications/> </>} />
         <Route

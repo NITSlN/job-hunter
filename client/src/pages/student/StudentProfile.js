@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import AddEducation from '../../components/student/AddEducation'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import AddWorkExperience from '../../components/student/AddWorkExperience'
 import AddSkills from '../../components/student/AddSkills'
 import AddCertificate from '../../components/student/AddCertificate'
 import AddResumeLink from '../../components/student/AddResumeLink'
-function StudentProfile() {
+function StudentProfile({OwnProfile}) {
   const [profile, setProfile] = useState({})
   const [educationModal, setEducationModal] = useState(false)
   const [workModal, setWorkModal] = useState(false)
@@ -16,9 +16,11 @@ function StudentProfile() {
   const [resumeModal, setResumeModal] = useState(false)
   const [error, setError] = useState(null)
 
+  const { id } = useParams();
+
   useEffect(() => {
     axios
-      .get('/api/student/me')
+      .get(OwnProfile?'/api/student/me':'/api/student/profile/'+id)
       .then((response) => {
         setProfile(response.data)
       })
@@ -27,7 +29,7 @@ function StudentProfile() {
         setError(error.message)
       })
   }, [])
-  console.log(profile)
+  
 
   const deleteEducation = async (_id) => {
     await axios
@@ -85,31 +87,25 @@ function StudentProfile() {
             ) : (
               <div className='flex gap-2 items-center'>
                 <a href={profile.resumeLink} target='_blank' className='cursor-pointer hover:underline'>Resume</a>
-                <span
+                {OwnProfile && <span
                   onClick={() => setResumeModal(true)}
                   className="text-blue-700 text-sm cursor-pointer self-end"
                 >
                   Edit
-                </span>
+                </span>}
               </div>
             )}
-            {/* <Link
-              to="/student/edit-profile"
-              className="text-indigo-600 hover:text-indigo-800"
-            >
-              Edit Profile
-            </Link> */}
           </div>
         </div>
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
             Education{' '}
-            <span
+            {OwnProfile && <span
               className="text-blue-700 text-sm cursor-pointer"
               onClick={() => setEducationModal(true)}
             >
               Add+
-            </span>
+            </span>}
             <hr />
           </h3>
           {educationModal && (
@@ -142,12 +138,12 @@ function StudentProfile() {
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
             Work Experience{' '}
-            <span
+           {OwnProfile && <span
               onClick={() => setWorkModal(true)}
               className="text-blue-700 text-sm cursor-pointer"
             >
               Add+
-            </span>
+            </span>}
             <hr />
           </h3>
           {workModal && <AddWorkExperience setWorkModal={setWorkModal} />}
@@ -177,12 +173,12 @@ function StudentProfile() {
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
             Skills{' '}
-            <span
+            {OwnProfile && <span
               onClick={() => setSkillInput(true)}
               className="text-blue-700 text-sm cursor-pointer"
             >
               Add+
-            </span>
+            </span>}
           </h3>
           {profile.skills?.length > 0 ? (
             <div className="my-3 flex flex-wrap">
@@ -208,12 +204,12 @@ function StudentProfile() {
         <div className="mb-4">
           <h3 className="text-lg font-semibold mb-1">
             Certifications{' '}
-            <span
+            {OwnProfile && <span
               onClick={() => setCertiModal(true)}
               className="text-blue-700 text-sm cursor-pointer"
             >
               Add+
-            </span>
+            </span>}
           </h3>
           {certiModal && <AddCertificate setCertiModal={setCertiModal} />}
           {profile.certifications?.length > 0 ? (

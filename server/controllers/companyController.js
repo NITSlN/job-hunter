@@ -230,8 +230,7 @@ const getCompanyProfile = async (req, res) => {
       return res.status(404).json({ error: 'Company profile not found' });
     }
 
-    // Render the company profile template or return the profile data as JSON
-    res.render('company-profile', { companyProfile });
+    res.json( companyProfile );
   } catch (error) {
     // Handle any errors that occur during the retrieval process
     console.error('Error retrieving company profile:', error);

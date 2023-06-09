@@ -14,6 +14,7 @@ const {
   addCertificate,
   deleteCertificate,
   updateResumeLink,
+  getStudentProfile,
 } = require('../controllers/studentController')
 const { studentProtect } = require('../middleware/authMiddleware')
 const router = express.Router()
@@ -25,6 +26,7 @@ router.post('/login', loginStudent)
 router.post('/logout', logoutStudent)
 // get user details
 router.get('/me', studentProtect, getMe)
+router.get('/profile/:id', getStudentProfile)
 // gets all the jobs posted
 router.get('/', studentProtect, getJobs)
 // apply for a job

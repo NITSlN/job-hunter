@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { BiEditAlt } from 'react-icons/bi'
-const ProfilePage = () => {
+import { useParams } from 'react-router-dom'
+const ProfilePage = ({OwnProfile}) => {
   const [company, setCompany] = useState({})
   const [editing, setEditing] = useState(false)
   const [formData, setFormData] = useState({
@@ -14,11 +15,13 @@ const ProfilePage = () => {
     linkedIn: '',
     address: '',
   })
-
+  const { id } = useParams();
   useEffect(() => {
     const fetchCompanyProfile = async () => {
       try {
-        const response = await axios.get('/api/company/profile')
+        let response;
+        if(OwnProfile) response = await axios.get('/api/company/profile')
+        else response = await axios.get('/api/company/profile/'+id)
         setCompany(response.data)
         setFormData(response.data)
       } catch (error) {
@@ -62,13 +65,13 @@ const ProfilePage = () => {
 
   return (
     <div className="container mx-auto py-8 pt-28">
-      <div className="max-w-lg mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+      <div className="max-w-lg lg:max-w-xl mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
         <div className="p-6">
           {!editing ? (
             <>
-              <h2 className="text-3xl font-semibold mb-2">Profile</h2>
               <span className="text-2xl font-bold mb-4">{company.companyName}</span>
               <button
+                title='Edit'
                 className="text-right scale-125 py-2 px-4 rounded mt-4"
                 onClick={handleEdit}
               >
@@ -95,11 +98,13 @@ const ProfilePage = () => {
                 </a>
               )}
               </div>
+              {OwnProfile && <div>
               <p className="text-gray-600 mb-2">Your Name: {company.name}</p>
               <p className="text-gray-600 mb-2">Email: {company.email}</p>
               <p className="text-gray-600 mb-2">
                 Phone Number: {company.phoneNumber}
               </p>
+              </div>}
               <p className="text-gray-600 mb-2">
                 Company Size: {company.companySize} employees
               </p>
