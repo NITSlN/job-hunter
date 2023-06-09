@@ -1,9 +1,11 @@
 import React from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 const StudentCard = ({ props }) => {
   console.log(props)
   const {
     _id,
+    companyRef,
     companyName,
     role,
     skills,
@@ -24,7 +26,7 @@ const StudentCard = ({ props }) => {
     <div className="">
       <div className="border-r-2 rounded-tl-lg rounded-tr-lg bg-white w-48 py-4 px-4 min-w-[500px]">
         <h1 className="font-semibold">{role}</h1>
-        <h3 className="text-xs">{companyName}</h3>
+        <Link to={'/student/companyProfile/'+companyRef} className="text-xs">{companyName}</Link>
         <div className="text-xs flex gap-2 my-3">
           {skills?.map((tag) => {
             return (

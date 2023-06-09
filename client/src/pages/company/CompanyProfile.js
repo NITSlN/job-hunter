@@ -6,8 +6,6 @@ const ProfilePage = ({OwnProfile}) => {
   const [company, setCompany] = useState({})
   const [editing, setEditing] = useState(false)
   const [formData, setFormData] = useState({
-    name: '',
-    companyName: '',
     phoneNumber: '',
     description: '',
     companySize: '',
@@ -118,30 +116,6 @@ const ProfilePage = ({OwnProfile}) => {
             <>
               <h1 className="text-3xl font-bold mb-4">Edit Profile</h1>
               <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
-                <div className="mb-4">
-                  <label className="block text-gray-700 font-semibold mb-2">
-                    Company Name
-                  </label>
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={formData.companyName}
-                    onChange={handleChange}
-                    className="border border-gray-400 rounded px-4 py-2 w-full"
-                  />
-                </div>
                 <div className="mb-4">
                   <label className="block text-gray-700 font-semibold mb-2">
                     Phone Number

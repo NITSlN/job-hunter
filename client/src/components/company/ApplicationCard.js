@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ApplicationCard = ({ props }) => {
-  const { name, email, phone, imgUrl,resumeLink } = props
+  const { _id, name, email, phone, imgUrl,resumeLink } = props
   console.log(props)
   return (
     <div className="max-w-lg p-4">
-      <article className="rounded-xl border border-gray-700 bg-gray-800 p-4">
+      <article className="rounded-xl duration-100 hover:-translate-y-1 bg-gray-800 p-4 hover:shadow-sm hover:shadow-green-400">
         <div className="flex items-center gap-4">
           <img
             alt="Applicant"
@@ -14,7 +15,7 @@ const ApplicationCard = ({ props }) => {
           />
 
           <div>
-            <h3 className="text-lg font-medium text-white">{name}</h3>
+            <Link to={'/company/studentProfile/'+_id} className="text-lg font-medium text-white">{name}</Link>
 
             <div className="flow-root">
               <ul className="-m-1 flex flex-wrap items-center">

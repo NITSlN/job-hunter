@@ -45,7 +45,7 @@ const PostJob = () => {
         { withCredentials: true },
       )
       .then(() => {
-        navigate('/api/company/posts')
+        navigate('/company/posts')
         console.log('redirect')
       }) // for cookies this must be set
   }
