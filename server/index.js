@@ -8,7 +8,7 @@ require("dotenv").config({ path: ".env" });
 
 // cors whitelist
 const whitelist = [ 
-  'http://localhost:3000', // not https
+  'http://localhost:3000/', // not https
 ]
 const corsOptions = {
   credentials: true,
@@ -28,10 +28,6 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*'); // Set the Access-Control-Allow-Origin header to allow all origins
-  next();
-});
 app.use("/api/student", require("./routes/studentRoute"));
 app.use("/api/company", require("./routes/companyRoute"));
 
