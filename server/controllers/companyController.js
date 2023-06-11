@@ -48,8 +48,8 @@ const registerCompany = async (req, res) => {
       res.status(400)
       throw new Error('Invalid user data')
     }
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
@@ -63,7 +63,6 @@ const loginCompany = async (req, res) => {
     // Check for user email
     const user = await Company.findOne({ email })
 
-    console.log(user)
     if (user && (await bcrypt.compareSync(password, user.password))) {
       res
         .cookie('access_token', generateToken(user._id), {
@@ -80,8 +79,8 @@ const loginCompany = async (req, res) => {
       res.status(400)
       throw new Error('Invalid credentials')
     }
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
@@ -93,7 +92,7 @@ const getJobs = async (req, res) => {
     const jobs = await JobPost.find({ company: req.user.id }).sort({ _id: -1 })
     res.status(200).json(jobs)
   } catch (err) {
-    console.log(err)
+    res.status(500).json(err)
   }
 }
 
@@ -106,7 +105,6 @@ const createJob = async (req, res) => {
     let skills = req.body.skills?.split(',');
     skills = skills.map(skill=>skill.trim())
     // finding company using user id
-    console.log(req.user);
     const company = req.user
     // creating Job in db
     const post = await JobPost.create({
@@ -121,7 +119,7 @@ const createJob = async (req, res) => {
     // sending the job back
     res.json(post)
   } catch (err) {
-    console.log(err)
+    res.status(500).json(err)
   }
 }
 // @desc    Update jobs
@@ -138,7 +136,7 @@ const updateJob = async (req, res) => {
     )
     res.json(post)
   } catch (err) {
-    console.log(err)
+    res.status(500).json(err)
   }
 }
 
@@ -156,7 +154,7 @@ const deleteJob = async (req, res) => {
     )
     res.json('Post Deleted')
   } catch (err) {
-    console.log(err)
+    res.status(500).json(err)
   }
 }
 
@@ -167,7 +165,7 @@ const getProfile = async (req, res) => {
   try {
     res.status(200).json(req.user)
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
   }
 }
 // @desc    get applied students
@@ -182,12 +180,12 @@ const getStudents = async (req, res) => {
         return studentDetail
       })
       .catch((error) => {
-        console.log(error)
+        res.status(500).json(error)
       })
       console.log(appliedStudentDetails);
     res.status(200).json(appliedStudentDetails)
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
   }
 }
 // @desc    Update company details
@@ -198,7 +196,6 @@ const updateProfile = async (req, res) => {
     const companyId = req.user.id;
 
     // Update the company profile with the new data
-    console.log(req.body);
     const updatedProfile = await Company.findByIdAndUpdate(
       companyId,
       req.body,
@@ -211,8 +208,7 @@ const updateProfile = async (req, res) => {
 
     res.json({ message: 'Company profile updated successfully', company: updatedProfile });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Server error' });
+    res.status(500).json(error);
   }
 }
 // @desc    Update company details by id

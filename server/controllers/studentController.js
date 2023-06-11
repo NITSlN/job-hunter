@@ -12,11 +12,10 @@ const getJobs = async (req, res) => {
     const appliedJobs = req.user.applications // convert ObjectIds to strings
     // Filter out jobs that have an id in the appliedJobs array
     jobs = jobs.filter((job) => !appliedJobs.includes(job.id))
-    console.log(jobs);
     // Return the remaining jobs
     res.status(200).json(jobs)
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    res.status(500).json(err)
   }
 }
 
@@ -62,7 +61,7 @@ const registerStudent = async (req, res) => {
       throw new Error('Invalid user data')
     }
   } catch (e) {
-    console.log(e)
+    res.status(500).json(e)
   }
 }
 
@@ -93,7 +92,7 @@ const loginStudent = async (req, res) => {
       throw new Error('Invalid credentials')
     }
   } catch (e) {
-    console.log(e)
+    res.status(500).json(e)
   }
 }
 
@@ -104,7 +103,7 @@ const getMe = async (req, res) => {
   try {
     res.status(200).json(req.user)
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
   }
 }
 

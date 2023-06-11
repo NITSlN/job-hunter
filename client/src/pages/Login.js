@@ -43,7 +43,6 @@ function Login() {
       }
       else alert('Login Unsuccessfull')
     }
-    console.log('Logged in')
   }
   return (
     <div className="bg-black">

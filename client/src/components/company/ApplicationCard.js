@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const ApplicationCard = ({ props }) => {
   const { _id, name, email, phone, imgUrl,resumeLink } = props
-  console.log(props)
   return (
     <div className="max-w-lg p-4">
       <article className="rounded-xl duration-100 hover:-translate-y-1 bg-gray-800 p-4 hover:shadow-sm hover:shadow-green-400">

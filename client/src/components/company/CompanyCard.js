@@ -16,7 +16,6 @@ const CompanyCard = ({ props }) => {
 
   const navigate = useNavigate()
   const seeApplications = async (id) => {
-    console.log("ok");
     navigate('/company/posts/'+id)
   }
   const deletePost = async (id) => {

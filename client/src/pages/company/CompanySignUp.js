@@ -25,7 +25,7 @@ function CompanySignUp() {
           },
           { withCredentials: true, credentials: 'include' },
         )
-        return console.log(response.data)
+        return;
       } catch (error) {
         console.error(error)
       }

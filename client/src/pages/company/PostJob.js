@@ -46,7 +46,6 @@ const PostJob = () => {
       )
       .then(() => {
         navigate('/company/posts')
-        console.log('redirect')
       }) // for cookies this must be set
   }
 
