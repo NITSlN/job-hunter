@@ -8,7 +8,7 @@ import axios from 'axios';
 import {AuthProvider} from './context/AuthContext';
 
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:3001/';
+axios.defaults.baseURL = 'https://average-vest-bee.cyclic.app/';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
