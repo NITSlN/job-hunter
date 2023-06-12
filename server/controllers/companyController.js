@@ -36,6 +36,7 @@ const registerCompany = async (req, res) => {
     if (user) {
       res
         .cookie('access_token', generateToken(user._id), {
+          expires: new Date(Date.now() + 25892000000), // expire in 30 days
           httpOnly: true,
           secure:true,
           sameSite: "None",
@@ -69,7 +70,9 @@ const loginCompany = async (req, res) => {
       res
         .cookie('access_token', generateToken(user._id), {
           expires: new Date(Date.now()+25892000000),
-          httpOnly:true
+          httpOnly: true,
+          secure:true,
+          sameSite: "None",
         })
         .status(200)
         .json({
