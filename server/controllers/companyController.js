@@ -37,6 +37,8 @@ const registerCompany = async (req, res) => {
       res
         .cookie('access_token', generateToken(user._id), {
           httpOnly: true,
+          secure:true,
+          sameSite: "None",
         })
         .status(200)
         .json({
