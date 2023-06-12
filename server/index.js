@@ -12,7 +12,6 @@ const corsOptions = {
   origin: (origin, callback) => {
     callback(null, true)
   },
-  optionsSuccessStatus: 200
 }
 
 app.use(cors(corsOptions));

@@ -49,6 +49,8 @@ const registerStudent = async (req, res) => {
         .cookie('access_token', generateToken(user._id), {
           expires: new Date(Date.now() + 25892000000), // expire in 30 days
           httpOnly: true,
+          secure: true,
+          sameSite: "None",
         })
         .status(200)
         .json({
@@ -74,12 +76,14 @@ const loginStudent = async (req, res) => {
 
     // Check for user email
     const user = await Student.findOne({ email })
-
+    console.log(user);
     if (user && (await bcrypt.compareSync(password, user.password))) {
       res
         .cookie('access_token', generateToken(user._id), {
           expires: new Date(Date.now() + 25892000000),
           httpOnly: true,
+          secure:true,
+          sameSite: "None",
         })
         .status(200)
         .json({
