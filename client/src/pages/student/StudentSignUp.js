@@ -39,17 +39,18 @@ function StudentSignUp() {
             <div className="mb-4 md:mr-2 md:mb-0">
               <label
                 className="block mb-2 text-sm font-bold text-gray-700"
-                for="firstName"
+                for="name"
               >
                 Name
               </label>
               <input
                 className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                id="firstName"
+                id="name"
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name"
+                name='name'
               />
             </div>
             {/* Email */}
@@ -64,6 +65,7 @@ function StudentSignUp() {
                 className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 id="email"
                 type="email"
+                name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
@@ -80,6 +82,7 @@ function StudentSignUp() {
               <input
                 className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 id="phone"
+                name="phone"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -98,6 +101,7 @@ function StudentSignUp() {
                 <input
                   className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border  rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="password"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -116,6 +120,7 @@ function StudentSignUp() {
                 <input
                   className="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                   id="c_password"
+                  name="c_password"
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
