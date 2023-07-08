@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function CompanySignUp() {
   const [name, setName] = useState('')
@@ -9,6 +10,7 @@ function CompanySignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const navigate = useNavigate()
   // Sign up function
   const signUp = async (e) => {
     e.preventDefault()
@@ -26,7 +28,7 @@ function CompanySignUp() {
           },
           { withCredentials: true, credentials: 'include' },
         )
-        return;
+        return navigate('/company/posts')
       } catch (error) {
         console.error(error)
       }

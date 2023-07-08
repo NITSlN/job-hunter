@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 function StudentSignUp() {
   const [name, setName] = useState('')
@@ -8,6 +9,7 @@ function StudentSignUp() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
+  const navigate = useNavigate()
   // Sign up function
   const signUp = async (e) => {
     e.preventDefault()
@@ -21,7 +23,7 @@ function StudentSignUp() {
           phone,
           password,
         },{withCredentials: true, credentials: 'include'})
-        return console.log(response.data)
+        return navigate('/student/posts')
       } catch (error) {
         return console.error(error)
       }
