@@ -9,7 +9,8 @@ function StudentSignUp() {
   const [confirmPassword, setConfirmPassword] = useState('')
 
   // Sign up function
-  const signUp = async () => {
+  const signUp = async (e) => {
+    e.preventDefault()
     if (name!=='' && email!=='' && phone!=='' && password!=='' && confirmPassword!=='') {
       if (password !== confirmPassword) return alert('Passwords do not Match')
 
@@ -22,7 +23,7 @@ function StudentSignUp() {
         },{withCredentials: true, credentials: 'include'})
         return console.log(response.data)
       } catch (error) {
-        console.error(error)
+        return console.error(error)
       }
     }
     return alert('Fill all the Information')
@@ -34,7 +35,7 @@ function StudentSignUp() {
           <h3 className="pt-4 text-2xl text-center">Create an Account!</h3>
 
           {/* Form */}
-          <form className="px-8 py-2 rounded">
+          <form className="px-8 py-2 rounded" onSubmit={signUp}>
             {/*  Name */}
             <div className="mb-4 md:mr-2 md:mb-0">
               <label
@@ -127,8 +128,7 @@ function StudentSignUp() {
             <div className="mb-6 text-center">
               <button
                 className="w-full px-4 py-2 font-bold text-white bg-green-500 rounded-full hover:bg-green-700 focus:outline-none focus:shadow-outline"
-                type="button"
-                onClick={() => signUp()}
+                type="submit"
               >
                 Register Account
               </button>
