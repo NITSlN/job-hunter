@@ -13,8 +13,6 @@ const ListedJobs = lazy(() => import('./pages/company/ListedJobs'));
 const Applications = lazy(() => import('./pages/company/Applications'));
 const StudentProfile = lazy(() => import('./pages/student/StudentProfile'));
 
-//  Lazy loading increased the efficiency by 50%
-//  Lazy loading increased the efficiency by 42%
 function App() {
   return (
     <div className="h-full bg-black">
